@@ -3,46 +3,55 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Be My Valentine 💌</title>
+  <title>Be My Valentine 💗</title>
+
   <style>
     :root{
-      --bg1:#fff0f6;
-      --bg2:#ffe6ef;
-      --card:#ffffff;
-      --text:#2b1b1f;
-      --muted:#6b4b54;
-      --yes:#ff4d88;
-      --yes2:#ff2f78;
-      --no:#ffffff;
-      --noBorder:#ff9bbd;
-      --shadow: 0 18px 45px rgba(0,0,0,.12);
+      --pink-1:#fff0f6;
+      --pink-2:#ffe3ef;
+      --pink-3:#ffd1e6;
+      --pink-4:#ffb6d5;
+      --hot:#ff4d8d;
+      --hot2:#ff2f78;
+
+      --text:#2a1b22;
+      --muted:#7a5060;
+
+      --card: rgba(255,255,255,.82);
+      --stroke: rgba(255,77,141,.18);
+      --shadow: 0 22px 60px rgba(28,10,18,.18);
+      --shadow2: 0 14px 30px rgba(255,77,141,.18);
     }
+
     *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+
     body{
       margin:0;
-      min-height:100svh;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color:var(--text);
+      color: var(--text);
       background:
-        radial-gradient(1100px 700px at 20% 20%, var(--bg1), transparent 60%),
-        radial-gradient(1000px 700px at 80% 30%, var(--bg2), transparent 60%),
-        linear-gradient(180deg, #fff, #fff2f7);
+        radial-gradient(900px 600px at 20% 20%, var(--pink-1), transparent 60%),
+        radial-gradient(900px 600px at 80% 30%, var(--pink-2), transparent 60%),
+        radial-gradient(700px 500px at 60% 90%, var(--pink-3), transparent 55%),
+        linear-gradient(180deg, #fff, #fff6fa);
       overflow-x:hidden;
     }
 
-    /* floating hearts */
+    /* мягкие сердечки на фоне */
     .heart{
       position:fixed;
       bottom:-30px;
       width:18px;height:18px;
       transform: rotate(45deg);
-      background: rgba(255,77,136,.55);
+      background: rgba(255,77,141,.50);
       border-radius:4px;
       animation: floatUp linear forwards;
       pointer-events:none;
       z-index:0;
+      filter: blur(.1px);
     }
-    .heart:before, .heart:after{
+    .heart:before,.heart:after{
       content:"";
       position:absolute;
       width:18px;height:18px;
@@ -51,6 +60,7 @@
     }
     .heart:before{ left:-9px; top:0; }
     .heart:after{ left:0; top:-9px; }
+
     @keyframes floatUp{
       from{ transform: translateY(0) rotate(45deg); opacity:.9; }
       to{ transform: translateY(-110vh) rotate(45deg); opacity:0; }
@@ -59,212 +69,224 @@
     .wrap{
       position:relative;
       z-index:1;
-      max-width: 980px;
-      margin: 0 auto;
-      padding: 28px 18px 46px;
-      display:flex;
       min-height:100svh;
+      display:flex;
       align-items:center;
       justify-content:center;
+      padding: 24px 16px 40px;
     }
 
     .panel{
-      width: min(920px, 100%);
-      background: rgba(255,255,255,.75);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,77,136,.16);
+      width:min(980px, 100%);
+      background: var(--card);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--stroke);
+      border-radius: 28px;
       box-shadow: var(--shadow);
-      border-radius: 26px;
-      padding: 26px 22px;
+      padding: 22px;
       position:relative;
       overflow:hidden;
+    }
+
+    .shine{
+      position:absolute;
+      inset:-140px;
+      pointer-events:none;
+      background:
+        radial-gradient(circle at 22% 18%, rgba(255,77,141,.18), transparent 45%),
+        radial-gradient(circle at 78% 22%, rgba(255,182,213,.20), transparent 42%),
+        radial-gradient(circle at 50% 85%, rgba(255,77,141,.10), transparent 40%);
     }
 
     .top{
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap:14px;
-      margin-bottom:16px;
+      gap:12px;
+      margin-bottom: 10px;
     }
 
     .badge{
-      font-weight:700;
-      letter-spacing:.14em;
       font-size:12px;
-      color:#b02f58;
-      background: rgba(255,77,136,.12);
+      font-weight:800;
+      letter-spacing:.14em;
+      color:#b23563;
+      background: rgba(255,77,141,.12);
+      border: 1px solid rgba(255,77,141,.18);
       padding: 8px 10px;
       border-radius:999px;
-      border:1px solid rgba(255,77,136,.22);
       user-select:none;
       white-space:nowrap;
     }
 
     h1{
-      margin: 6px 0 8px;
+      margin: 8px 0 6px;
+      text-align:center;
       font-size: clamp(34px, 5vw, 58px);
-      line-height: 1.05;
-      text-align:center;
+      line-height:1.04;
+      letter-spacing: .02em;
     }
+
     .subtitle{
+      margin:0 0 16px;
       text-align:center;
-      color:var(--muted);
-      margin: 0 0 18px;
-      font-size: 16px;
+      color: var(--muted);
+      font-size: 15px;
     }
 
-    .main{
+    .grid{
       display:grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap: 18px;
-      align-items:center;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 16px;
+      align-items:stretch;
     }
-    @media (max-width: 860px){
-      .main{ grid-template-columns: 1fr; }
+    @media (max-width: 880px){
+      .grid{ grid-template-columns: 1fr; }
     }
 
-    .cuteBox{
-      background: var(--card);
-      border-radius: 22px;
+    .card{
+      background: rgba(255,255,255,.86);
       border: 1px solid rgba(0,0,0,.06);
+      border-radius: 24px;
+      box-shadow: var(--shadow2);
       padding: 18px;
-      box-shadow: 0 10px 26px rgba(255,77,136,.12);
       position:relative;
       overflow:hidden;
-      min-height: 280px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      flex-direction:column;
-      gap:14px;
     }
 
-    .emoji{
+    .penguin{
       font-size: 64px;
-      filter: drop-shadow(0 10px 18px rgba(255,77,136,.18));
       user-select:none;
+      filter: drop-shadow(0 10px 18px rgba(255,77,141,.18));
+      margin-top: 6px;
     }
 
     .question{
       font-size: 22px;
-      font-weight: 700;
+      font-weight: 900;
       text-align:center;
+      margin: 10px 0 4px;
+    }
+
+    .hint{
+      text-align:center;
+      margin:0;
+      color: rgba(122,80,96,.9);
+      font-size: 13px;
     }
 
     .btnRow{
+      margin-top: 14px;
       display:flex;
       gap: 12px;
       align-items:center;
       justify-content:center;
       flex-wrap:wrap;
-      margin-top: 6px;
-      position:relative;
     }
 
     button{
-      border: none;
-      cursor: pointer;
-      border-radius: 999px;
+      border:none;
+      cursor:pointer;
+      border-radius:999px;
       padding: 14px 22px;
-      font-weight: 800;
+      font-weight: 900;
       letter-spacing:.03em;
-      transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
-      user-select:none;
+      transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
       touch-action: manipulation;
+      user-select:none;
+      min-width: 140px;
     }
 
     #yesBtn{
-      background: linear-gradient(180deg, var(--yes), var(--yes2));
-      color: #fff;
-      box-shadow: 0 14px 26px rgba(255,77,136,.35);
+      background: linear-gradient(180deg, var(--hot), var(--hot2));
+      color:#fff;
+      box-shadow: 0 16px 28px rgba(255,77,141,.35);
       transform: scale(1);
-      min-width: 140px;
     }
-    #yesBtn:hover{ transform: scale(1.03); }
+    #yesBtn:hover{ filter: brightness(1.03); }
     #yesBtn:active{ transform: scale(.98); }
 
     #noBtn{
-      background: var(--no);
-      color: #b02f58;
-      border: 2px solid var(--noBorder);
-      box-shadow: 0 12px 22px rgba(255,77,136,.12);
-      min-width: 140px;
-      position:relative;
+      background: rgba(255,255,255,.95);
+      color:#b23563;
+      border: 2px solid rgba(255,77,141,.32);
+      box-shadow: 0 14px 26px rgba(255,77,141,.12);
+      transform: scale(1);
     }
-    #noBtn:hover{ transform: translateY(-1px); }
-    #noBtn:active{ transform: translateY(1px) scale(.99); }
+    #noBtn:hover{ filter: brightness(1.02); }
+    #noBtn:active{ transform: scale(.98); }
 
     .counter{
-      margin-top: 8px;
-      font-size: 13px;
-      color: rgba(176,47,88,.85);
-      background: rgba(255,77,136,.10);
-      border: 1px dashed rgba(255,77,136,.28);
-      padding: 8px 10px;
-      border-radius: 14px;
+      margin-top: 12px;
       text-align:center;
+      font-size: 13px;
+      color:#b23563;
+      background: rgba(255,77,141,.10);
+      border: 1px dashed rgba(255,77,141,.25);
+      border-radius: 16px;
+      padding: 8px 10px;
     }
 
-    .side{
-      background: rgba(255,255,255,.6);
-      border: 1px solid rgba(0,0,0,.06);
-      border-radius: 22px;
-      padding: 16px;
-      box-shadow: 0 10px 26px rgba(0,0,0,.08);
-    }
-    .miniTitle{
-      font-weight: 900;
-      letter-spacing:.06em;
-      color:#b02f58;
-      font-size: 13px;
+    .sideTitle{
       margin: 0 0 10px;
+      font-size: 13px;
+      letter-spacing:.12em;
+      color:#b23563;
+      font-weight: 900;
       text-transform: uppercase;
     }
-    .note{
+    .sideText{
       margin:0 0 10px;
       color: var(--muted);
-      line-height: 1.5;
       font-size: 14px;
+      line-height: 1.5;
     }
 
-    /* Modal */
+    .miniBox{
+      background: rgba(255,77,141,.08);
+      border: 1px solid rgba(255,77,141,.14);
+      border-radius: 18px;
+      padding: 10px 12px;
+      font-size: 13px;
+      color:#5c3344;
+    }
+
+    /* MODAL */
     .modal{
       position:fixed;
       inset:0;
       display:none;
       align-items:center;
       justify-content:center;
-      padding: 18px;
-      background: rgba(20,10,14,.45);
+      padding: 16px;
+      background: rgba(22,10,16,.45);
       z-index:50;
     }
     .modal.show{ display:flex; }
 
     .modalCard{
-      width: min(980px, 100%);
-      max-height: min(86svh, 820px);
+      width:min(980px, 100%);
+      max-height: min(88svh, 860px);
       overflow:hidden;
       background: rgba(255,255,255,.92);
-      border: 1px solid rgba(255,77,136,.18);
-      border-radius: 26px;
-      box-shadow: 0 22px 60px rgba(0,0,0,.25);
+      border: 1px solid rgba(255,77,141,.18);
+      border-radius: 28px;
+      box-shadow: 0 28px 80px rgba(0,0,0,.25);
       position:relative;
     }
 
     .modalHeader{
-      padding: 16px 16px 10px;
       display:flex;
       align-items:flex-start;
       justify-content:space-between;
-      gap:12px;
+      gap: 12px;
+      padding: 14px 14px 10px;
       border-bottom: 1px solid rgba(0,0,0,.06);
-      background: linear-gradient(180deg, rgba(255,240,246,.7), rgba(255,255,255,.0));
+      background: linear-gradient(180deg, rgba(255,240,246,.9), rgba(255,255,255,0));
     }
-
     .modalHeader h2{
       margin:0;
-      font-size: 22px;
+      font-size: 20px;
       line-height:1.2;
     }
     .modalHeader p{
@@ -274,9 +296,9 @@
     }
 
     .closeBtn{
-      background: rgba(255,77,136,.12);
-      border: 1px solid rgba(255,77,136,.22);
-      color:#b02f58;
+      background: rgba(255,77,141,.12);
+      border: 1px solid rgba(255,77,141,.22);
+      color:#b23563;
       padding: 10px 14px;
       border-radius: 999px;
       font-weight: 900;
@@ -284,115 +306,98 @@
     }
 
     .modalBody{
-      padding: 16px;
-      display:grid;
-      gap: 14px;
+      padding: 14px;
+      overflow:auto;
+      max-height: calc(min(88svh, 860px) - 64px);
     }
 
-    /* "письмо" */
     .letter{
-      background: #fff;
+      background:#fff;
       border: 1px solid rgba(0,0,0,.06);
-      border-radius: 22px;
-      padding: 18px 16px;
-      box-shadow: 0 10px 26px rgba(255,77,136,.12);
+      border-radius: 24px;
+      padding: 16px 14px;
+      box-shadow: 0 12px 28px rgba(255,77,141,.12);
       position:relative;
       overflow:hidden;
-      text-align:left;
     }
-    .letter .ribbon{
+
+    .ribbon{
       position:absolute;
       top:16px;
-      right:-52px;
+      right:-58px;
       transform: rotate(35deg);
-      background: linear-gradient(180deg, #ff4d88, #ff2f78);
+      background: linear-gradient(180deg, var(--hot), var(--hot2));
       color:#fff;
-      font-weight:900;
-      padding: 10px 70px;
-      letter-spacing:.08em;
+      font-weight: 900;
+      padding: 10px 78px;
+      letter-spacing:.10em;
       font-size: 12px;
-      box-shadow: 0 10px 22px rgba(255,77,136,.35);
+      box-shadow: 0 12px 24px rgba(255,77,141,.35);
     }
+
     .letter h3{
       margin: 0 0 10px;
       font-size: 22px;
     }
-    .letter p{
+
+    .sentence{
       margin: 0 0 10px;
-      color: #4e2c35;
-      line-height: 1.55;
+      color:#4e2c3a;
+      line-height: 1.6;
       font-size: 15px;
     }
-    .letter .sign{
+
+    .sig{
       margin-top: 12px;
+      text-align:right;
       color: var(--muted);
       font-size: 14px;
-      text-align:right;
       font-style: italic;
     }
 
-    /* лента фото */
-    .strip{
-      background: rgba(255,77,136,.06);
-      border: 1px solid rgba(255,77,136,.14);
-      border-radius: 22px;
-      padding: 12px;
-      overflow:auto;
-      white-space:nowrap;
-    }
-    .photo{
-      width: 210px;
-      height: 140px;
-      display:inline-flex;
-      margin-right: 10px;
-      border-radius: 18px;
-      background: #fff;
-      border: 1px solid rgba(0,0,0,.06);
-      overflow:hidden;
-      box-shadow: 0 10px 22px rgba(0,0,0,.08);
-      position:relative;
-    }
-    .photo img{
+    .inlinePhoto{
       width:100%;
-      height:100%;
-      object-fit:cover;
+      border-radius: 18px;
+      margin: 10px 0 14px;
       display:block;
-    }
-    .photo .cap{
-      position:absolute;
-      left:10px;
-      bottom:10px;
-      background: rgba(20,10,14,.55);
-      color:#fff;
-      font-size: 12px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      backdrop-filter: blur(6px);
+      border: 1px solid rgba(0,0,0,.06);
+      box-shadow: 0 12px 26px rgba(0,0,0,.10);
+      max-height: 420px;
+      object-fit: cover;
     }
 
-    .footer{
-      margin-top: 14px;
-      text-align:center;
-      color: rgba(107,75,84,.85);
-      font-size: 12px;
+    /* confetti canvas */
+    #confetti{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:60;
+      display:none;
     }
+    #confetti.show{ display:block; }
   </style>
 </head>
+
 <body>
+  <canvas id="confetti"></canvas>
+
   <div class="wrap">
     <div class="panel">
+      <div class="shine"></div>
+
       <div class="top">
-        <div class="badge">💘 VALENTINE MODE</div>
+        <div class="badge">💗 SOFT PINK MODE</div>
         <div class="badge" id="dateBadge"></div>
       </div>
 
       <h1>BE MY VALENTINE 💌</h1>
-      <p class="subtitle">Нажми честно… но кнопка YES будет расти 😼</p>
+      <p class="subtitle">Нажми честно… но пингвинёнок очень верит в YES 🐧💗</p>
 
-      <div class="main">
-        <div class="cuteBox">
-          <div class="emoji" id="mainEmoji">🐻‍❄️</div>
+      <div class="grid">
+        <div class="card" style="text-align:center;">
+          <div class="penguin" id="penguin">🐧</div>
           <div class="question" id="questionText">Диана, будешь моей валентинкой?</div>
+          <p class="hint">NO уменьшится… YES станет больше 😳</p>
 
           <div class="btnRow">
             <button id="yesBtn">YES 💖</button>
@@ -402,36 +407,37 @@
           <div class="counter" id="counterText">NO нажали: 0 раз</div>
         </div>
 
-        <div class="side">
-          <div class="miniTitle">как вставить твои фото</div>
-          <p class="note">
-            1) Создай папку <b>photos</b> рядом с index.html<br>
-            2) Закинь туда фото: <b>1.jpg, 2.jpg, 3.jpg...</b><br>
-            3) Всё — лента появится сама ✨
+        <div class="card">
+          <div class="sideTitle">Файлы</div>
+          <p class="sideText">
+            Положи рядом <b>music.mp3</b> и папку <b>photos</b> с фото <b>1.jpg–9.jpg</b>.
+            Музыка включится только после нажатия YES (так делают все браузеры).
           </p>
-          <div class="miniTitle">музыка</div>
-          <p class="note">
-            Положи рядом файл <b>music.mp3</b>. Музыка стартует только после нажатия YES (так требует браузер).
+          <div class="miniBox">
+            💡 Если фото у тебя .png — просто поменяй в коде расширение на .png (я подписал где).
+          </div>
+          <div style="height:10px"></div>
+          <div class="sideTitle">Нежность</div>
+          <p class="sideText">
+            Всё сделано аккуратно: мягкие тени, пастельный розовый, без “кричащих” цветов ✨
           </p>
         </div>
       </div>
-
-      <div class="footer">Сделано с любовью 💗</div>
     </div>
   </div>
 
-  <!-- МУЗЫКА -->
+  <!-- Music -->
   <audio id="loveMusic" loop>
     <source src="music.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- MODAL -->
+  <!-- Modal -->
   <div class="modal" id="modal" role="dialog" aria-modal="true">
     <div class="modalCard">
       <div class="modalHeader">
         <div>
-          <h2>Открытка 💝</h2>
-          <p>Ты нажала YES — я счастлив(а) 💗</p>
+          <h2>Письмо для Дианы 💌</h2>
+          <p>Ты нажала YES — и пингвинёнок празднует 🐧💗</p>
         </div>
         <button class="closeBtn" id="closeBtn">Закрыть ✖</button>
       </div>
@@ -439,82 +445,102 @@
       <div class="modalBody">
         <div class="letter">
           <div class="ribbon">LOVE</div>
-          <h3>Диана,</h3>
-          <p>
-            у меня к тебе очень важный вопрос…
-          </p>
-          <p>
-            Будешь моей валентинкой? 💌
-          </p>
-          <p>
-            Обещаю беречь, радовать и делать твои дни чуть-чуть теплее 🥺💗
-          </p>
-          <div class="sign">— от: <span id="fromName">ТВОЁ ИМЯ</span></div>
-        </div>
 
-        <div>
-          <div class="miniTitle">твои фото 📸</div>
-          <div class="strip" id="photoStrip"></div>
+          <div id="letterContent"></div>
+
+          <div class="sig">— от: <span id="fromName">ТВОЁ ИМЯ</span></div>
         </div>
       </div>
     </div>
   </div>
 
   <script>
-    // ====== НАСТРОЙКИ ======
+    // ===== НАСТРОЙКИ =====
     const fromName = "ТВОЁ ИМЯ"; // впиши своё имя
+
+    // 9 фото (если у тебя png, замени .jpg на .png)
     const photos = [
       "photos/1.jpg",
       "photos/2.jpg",
       "photos/3.jpg",
       "photos/4.jpg",
-      "photos/5.jpg"
+      "photos/5.jpg",
+      "photos/6.jpg",
+      "photos/7.jpg",
+      "photos/8.jpg",
+      "photos/9.jpg",
     ];
-    // =======================
+
+    // Текст письма (то, что мы уже писали в диалоге — нежно и просто)
+    // Если хочешь — можешь заменить на свой точный текст.
+    const sentences = [
+      "Диана,",
+      "у меня к тебе очень важный вопрос…",
+      "Я давно хотел(а) спросить именно тебя.",
+      "Будешь моей валентинкой?",
+      "Обещаю беречь, радовать и делать твои дни чуть-чуть теплее.",
+      "Ты мне правда очень дорога.",
+      "Если ты скажешь «да», я буду самым счастливым пингвинёнком на свете 🐧💗"
+    ];
+    // =====================
 
     const yesBtn = document.getElementById("yesBtn");
-    const noBtn = document.getElementById("noBtn");
+    const noBtn  = document.getElementById("noBtn");
     const counterText = document.getElementById("counterText");
+    const questionText = document.getElementById("questionText");
+    const penguin = document.getElementById("penguin");
+
     const modal = document.getElementById("modal");
     const closeBtn = document.getElementById("closeBtn");
-    const photoStrip = document.getElementById("photoStrip");
-    const mainEmoji = document.getElementById("mainEmoji");
-    const questionEl = document.getElementById("questionText");
-    const dateBadge = document.getElementById("dateBadge");
-    const fromNameEl = document.getElementById("fromName");
-    const music = document.getElementById("loveMusic");
+    const loveMusic = document.getElementById("loveMusic");
 
-    // date
+    const fromNameEl = document.getElementById("fromName");
+    const letterContent = document.getElementById("letterContent");
+    fromNameEl.textContent = fromName;
+
+    // date badge
+    const dateBadge = document.getElementById("dateBadge");
     const now = new Date();
     const dd = String(now.getDate()).padStart(2,'0');
     const mm = String(now.getMonth()+1).padStart(2,'0');
     const yyyy = now.getFullYear();
     dateBadge.textContent = `${dd}.${mm}.${yyyy}`;
 
-    // apply name
-    fromNameEl.textContent = fromName;
+    // build letter: after each sentence -> next photo (1-9)
+    function buildLetter(){
+      letterContent.innerHTML = "";
 
-    // photos
-    function buildPhotos(){
-      photoStrip.innerHTML = "";
-      photos.forEach((src, i) => {
-        const wrap = document.createElement("div");
-        wrap.className = "photo";
+      // Вставляем предложения + фото по порядку
+      let photoIndex = 0;
 
-        const img = document.createElement("img");
-        img.src = src;
-        img.alt = `photo ${i+1}`;
+      sentences.forEach((s, idx) => {
+        const p = document.createElement("p");
+        p.className = "sentence";
+        p.textContent = s;
+        letterContent.appendChild(p);
 
-        const cap = document.createElement("div");
-        cap.className = "cap";
-        cap.textContent = `❤ ${i+1}`;
-
-        wrap.appendChild(img);
-        wrap.appendChild(cap);
-        photoStrip.appendChild(wrap);
+        // после каждого предложения — фото, пока есть 1..9
+        if (photoIndex < photos.length) {
+          const img = document.createElement("img");
+          img.className = "inlinePhoto";
+          img.src = photos[photoIndex];
+          img.alt = `photo ${photoIndex+1}`;
+          letterContent.appendChild(img);
+          photoIndex++;
+        }
       });
+
+      // если фото осталось больше, чем предложений — докидываем оставшиеся
+      while (photoIndex < photos.length) {
+        const img = document.createElement("img");
+        img.className = "inlinePhoto";
+        img.src = photos[photoIndex];
+        img.alt = `photo ${photoIndex+1}`;
+        letterContent.appendChild(img);
+        photoIndex++;
+      }
     }
-    buildPhotos();
+    buildLetter();
 
     // hearts
     function spawnHeart(){
@@ -524,64 +550,54 @@
       h.style.width = size + "px";
       h.style.height = size + "px";
       h.style.left = (Math.random()*100) + "vw";
-      h.style.animationDuration = (3.5 + Math.random()*3.5) + "s";
-      h.style.opacity = (0.4 + Math.random()*0.5).toFixed(2);
+      h.style.animationDuration = (3.4 + Math.random()*3.6) + "s";
+      h.style.opacity = (0.35 + Math.random()*0.55).toFixed(2);
       document.body.appendChild(h);
       setTimeout(()=>h.remove(), 8000);
     }
+    setInterval(()=>{ if(Math.random()<0.35) spawnHeart(); }, 700);
 
+    // YES/NO scaling
     let noCount = 0;
     let yesScale = 1;
+    let noScale  = 1;
 
-    const noMessages = [
+    const noMsgs = [
       "точно? 🥺",
-      "ну пожалуйста… 😿",
-      "я очень-очень прошу 😳",
-      "посмотри на кнопку YES 😼",
-      "ну давай… 💗",
-      "ещё один шанс 🙈",
-      "YES уже огромная 😭💞"
+      "пингвинёнок расстроился 😿",
+      "ну пожалуйста… 💗",
+      "YES такая красивая… 🙈",
+      "я очень прошу 😳",
+      "последний шанс… 🥺💞"
     ];
 
-    function wiggleEmoji(){
-      mainEmoji.animate(
-        [
-          { transform: "rotate(0deg) scale(1)" },
-          { transform: "rotate(-8deg) scale(1.03)" },
-          { transform: "rotate(8deg) scale(1.03)" },
-          { transform: "rotate(0deg) scale(1)" }
-        ],
-        { duration: 320, easing: "ease-out" }
-      );
-    }
-
-    function nudgeNoButton(){
-      const dx = (Math.random()*20 - 10);
-      const dy = (Math.random()*14 - 7);
-      noBtn.style.transform = `translate(${dx}px, ${dy}px)`;
-      setTimeout(()=> noBtn.style.transform = "", 220);
-    }
-
     noBtn.addEventListener("click", () => {
-      noCount += 1;
+      noCount++;
 
-      yesScale = Math.min(yesScale + 0.18, 3.6);
+      // YES увеличивается
+      yesScale = Math.min(yesScale + 0.20, 3.8);
       yesBtn.style.transform = `scale(${yesScale})`;
 
-      counterText.textContent = `NO нажали: ${noCount} раз`;
-      const msg = noMessages[Math.min(noCount-1, noMessages.length-1)];
-      questionEl.textContent = `Диана, будешь моей валентинкой? (${msg})`;
+      // NO уменьшается
+      noScale = Math.max(noScale - 0.10, 0.45);
+      noBtn.style.transform = `scale(${noScale})`;
 
-      wiggleEmoji();
-      nudgeNoButton();
+      counterText.textContent = `NO нажали: ${noCount} раз`;
+
+      const msg = noMsgs[Math.min(noCount-1, noMsgs.length-1)];
+      questionText.textContent = `Диана, будешь моей валентинкой? (${msg})`;
+
+      // милый пингвин-реакция
+      if (noCount === 1) penguin.textContent = "🐧";
+      if (noCount === 3) penguin.textContent = "🐧💗";
+      if (noCount === 5) penguin.textContent = "🐧🥺";
+      if (noCount >= 7) penguin.textContent = "🐧💞";
+
       spawnHeart();
       if (noCount % 2 === 0) spawnHeart();
-
-      if (noCount === 4) mainEmoji.textContent = "🧸";
-      if (noCount === 7) mainEmoji.textContent = "🐰";
-      if (noCount === 10) mainEmoji.textContent = "🐣";
     });
 
+    // Modal open/close
     function openModal(){
       modal.classList.add("show");
       document.body.style.overflow = "hidden";
@@ -591,13 +607,6 @@
       document.body.style.overflow = "";
     }
 
-    yesBtn.addEventListener("click", () => {
-      // музыка запускается только после клика пользователя
-      music.play().catch(()=>{});
-      for(let i=0;i<16;i++) setTimeout(spawnHeart, i*40);
-      openModal();
-    });
-
     closeBtn.addEventListener("click", closeModal);
     modal.addEventListener("click", (e) => {
       if (e.target === modal) closeModal();
@@ -606,11 +615,97 @@
       if (e.key === "Escape" && modal.classList.contains("show")) closeModal();
     });
 
-    setInterval(() => {
-      if (!modal.classList.contains("show") && Math.random() < 0.35) spawnHeart();
-    }, 650);
+    // Confetti
+    const confettiCanvas = document.getElementById("confetti");
+    const ctx = confettiCanvas.getContext("2d");
+
+    function resizeCanvas(){
+      confettiCanvas.width = window.innerWidth;
+      confettiCanvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    let confettiPieces = [];
+    let confettiRunning = false;
+
+    function startConfetti(durationMs = 2200){
+      confettiCanvas.classList.add("show");
+      confettiRunning = true;
+      confettiPieces = [];
+
+      const w = confettiCanvas.width;
+      const h = confettiCanvas.height;
+
+      const count = 180;
+      for(let i=0;i<count;i++){
+        confettiPieces.push({
+          x: Math.random()*w,
+          y: -20 - Math.random()*h*0.2,
+          r: 4 + Math.random()*6,
+          vx: -2 + Math.random()*4,
+          vy: 2.5 + Math.random()*4.5,
+          rot: Math.random()*Math.PI,
+          vr: -0.12 + Math.random()*0.24,
+          alpha: 0.9
+        });
+      }
+
+      const start = performance.now();
+      function tick(t){
+        if(!confettiRunning) return;
+        const elapsed = t - start;
+
+        ctx.clearRect(0,0,w,h);
+        confettiPieces.forEach(p=>{
+          p.x += p.vx;
+          p.y += p.vy;
+          p.rot += p.vr;
+          p.vy += 0.02; // гравитация
+          p.alpha = Math.max(0, p.alpha - 0.002);
+
+          ctx.save();
+          ctx.globalAlpha = p.alpha;
+
+          // нежные розовые оттенки (без задавания “жёстких” цветов в CSS, но тут рисуем конфетти)
+          const shade = 200 + Math.floor(Math.random()*55);
+          ctx.fillStyle = `rgba(255, ${shade}, ${shade}, ${p.alpha})`;
+
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.rot);
+          ctx.fillRect(-p.r, -p.r/2, p.r*2.1, p.r);
+          ctx.restore();
+        });
+
+        confettiPieces = confettiPieces.filter(p => p.y < h + 30 && p.alpha > 0.05);
+
+        if(elapsed < durationMs && confettiPieces.length){
+          requestAnimationFrame(tick);
+        } else {
+          confettiRunning = false;
+          ctx.clearRect(0,0,w,h);
+          confettiCanvas.classList.remove("show");
+        }
+      }
+      requestAnimationFrame(tick);
+    }
+
+    // YES click: music + confetti + modal
+    yesBtn.addEventListener("click", () => {
+      // музыка (после клика разрешено)
+      loveMusic.play().catch(()=>{});
+
+      // маленький дождик сердечек
+      for(let i=0;i<14;i++) setTimeout(spawnHeart, i*45);
+
+      // конфетти
+      startConfetti(2400);
+
+      openModal();
+    });
   </script>
 </body>
 </html>
+
 
 
