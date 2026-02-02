@@ -1,199 +1,616 @@
 <!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Be My Valentine 💌</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <style>
+    :root{
+      --bg1:#fff0f6;
+      --bg2:#ffe6ef;
+      --card:#ffffff;
+      --text:#2b1b1f;
+      --muted:#6b4b54;
+      --yes:#ff4d88;
+      --yes2:#ff2f78;
+      --no:#ffffff;
+      --noBorder:#ff9bbd;
+      --shadow: 0 18px 45px rgba(0,0,0,.12);
+    }
+    *{ box-sizing:border-box; }
     body{
       margin:0;
-      min-height:100vh;
+      min-height:100svh;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: linear-gradient(180deg, #fff0f6, #ffe6ef);
+      color:var(--text);
+      background:
+        radial-gradient(1100px 700px at 20% 20%, var(--bg1), transparent 60%),
+        radial-gradient(1000px 700px at 80% 30%, var(--bg2), transparent 60%),
+        linear-gradient(180deg, #fff, #fff2f7);
+      overflow-x:hidden;
+    }
+
+    /* floating hearts */
+    .heart{
+      position:fixed;
+      bottom:-30px;
+      width:18px;height:18px;
+      transform: rotate(45deg);
+      background: rgba(255,77,136,.55);
+      border-radius:4px;
+      animation: floatUp linear forwards;
+      pointer-events:none;
+      z-index:0;
+    }
+    .heart:before, .heart:after{
+      content:"";
+      position:absolute;
+      width:18px;height:18px;
+      background: inherit;
+      border-radius:50%;
+    }
+    .heart:before{ left:-9px; top:0; }
+    .heart:after{ left:0; top:-9px; }
+    @keyframes floatUp{
+      from{ transform: translateY(0) rotate(45deg); opacity:.9; }
+      to{ transform: translateY(-110vh) rotate(45deg); opacity:0; }
+    }
+
+    .wrap{
+      position:relative;
+      z-index:1;
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 28px 18px 46px;
       display:flex;
+      min-height:100svh;
       align-items:center;
       justify-content:center;
     }
 
-    .card{
-      background:#fff;
-      padding:30px;
-      border-radius:26px;
-      box-shadow:0 20px 50px rgba(0,0,0,.15);
-      text-align:center;
-      max-width:500px;
-      width:100%;
+    .panel{
+      width: min(920px, 100%);
+      background: rgba(255,255,255,.75);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,77,136,.16);
+      box-shadow: var(--shadow);
+      border-radius: 26px;
+      padding: 26px 22px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      margin-bottom:16px;
+    }
+
+    .badge{
+      font-weight:700;
+      letter-spacing:.14em;
+      font-size:12px;
+      color:#b02f58;
+      background: rgba(255,77,136,.12);
+      padding: 8px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,77,136,.22);
+      user-select:none;
+      white-space:nowrap;
     }
 
     h1{
-      font-size:42px;
-      margin:0 0 10px;
+      margin: 6px 0 8px;
+      font-size: clamp(34px, 5vw, 58px);
+      line-height: 1.05;
+      text-align:center;
+    }
+    .subtitle{
+      text-align:center;
+      color:var(--muted);
+      margin: 0 0 18px;
+      font-size: 16px;
     }
 
-    p{
-      color:#6b4b54;
-      margin:0 0 20px;
+    .main{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 18px;
+      align-items:center;
+    }
+    @media (max-width: 860px){
+      .main{ grid-template-columns: 1fr; }
+    }
+
+    .cuteBox{
+      background: var(--card);
+      border-radius: 22px;
+      border: 1px solid rgba(0,0,0,.06);
+      padding: 18px;
+      box-shadow: 0 10px 26px rgba(255,77,136,.12);
+      position:relative;
+      overflow:hidden;
+      min-height: 280px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      gap:14px;
     }
 
     .emoji{
-      font-size:64px;
-      margin-bottom:10px;
+      font-size: 64px;
+      filter: drop-shadow(0 10px 18px rgba(255,77,136,.18));
+      user-select:none;
     }
 
-    .buttons{
-      display:flex;
-      gap:14px;
-      justify-content:center;
-      flex-wrap:wrap;
-    }
-
-    button{
-      border:none;
-      padding:14px 26px;
-      border-radius:999px;
-      font-size:18px;
-      font-weight:800;
-      cursor:pointer;
-      transition:.2s;
-    }
-
-    #yes{
-      background:#ff4d88;
-      color:#fff;
-      transform:scale(1);
-      box-shadow:0 12px 26px rgba(255,77,136,.4);
-    }
-
-    #no{
-      background:#fff;
-      border:2px solid #ff9bbd;
-      color:#b02f58;
-    }
-
-    #counter{
-      margin-top:12px;
-      font-size:13px;
-      color:#b02f58;
-    }
-
-    /* modal */
-    .modal{
-      position:fixed;
-      inset:0;
-      background:rgba(0,0,0,.5);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding:16px;
-    }
-
-    .modal.show{ display:flex; }
-
-    .modalContent{
-      background:#fff;
-      border-radius:26px;
-      max-width:700px;
-      width:100%;
-      padding:24px;
+    .question{
+      font-size: 22px;
+      font-weight: 700;
       text-align:center;
     }
 
-    .ribbon{
-      background:#ff4d88;
+    .btnRow{
+      display:flex;
+      gap: 12px;
+      align-items:center;
+      justify-content:center;
+      flex-wrap:wrap;
+      margin-top: 6px;
+      position:relative;
+    }
+
+    button{
+      border: none;
+      cursor: pointer;
+      border-radius: 999px;
+      padding: 14px 22px;
+      font-weight: 800;
+      letter-spacing:.03em;
+      transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+      user-select:none;
+      touch-action: manipulation;
+    }
+
+    #yesBtn{
+      background: linear-gradient(180deg, var(--yes), var(--yes2));
+      color: #fff;
+      box-shadow: 0 14px 26px rgba(255,77,136,.35);
+      transform: scale(1);
+      min-width: 140px;
+    }
+    #yesBtn:hover{ transform: scale(1.03); }
+    #yesBtn:active{ transform: scale(.98); }
+
+    #noBtn{
+      background: var(--no);
+      color: #b02f58;
+      border: 2px solid var(--noBorder);
+      box-shadow: 0 12px 22px rgba(255,77,136,.12);
+      min-width: 140px;
+      position:relative;
+    }
+    #noBtn:hover{ transform: translateY(-1px); }
+    #noBtn:active{ transform: translateY(1px) scale(.99); }
+
+    .counter{
+      margin-top: 8px;
+      font-size: 13px;
+      color: rgba(176,47,88,.85);
+      background: rgba(255,77,136,.10);
+      border: 1px dashed rgba(255,77,136,.28);
+      padding: 8px 10px;
+      border-radius: 14px;
+      text-align:center;
+    }
+
+    .side{
+      background: rgba(255,255,255,.6);
+      border: 1px solid rgba(0,0,0,.06);
+      border-radius: 22px;
+      padding: 16px;
+      box-shadow: 0 10px 26px rgba(0,0,0,.08);
+    }
+    .miniTitle{
+      font-weight: 900;
+      letter-spacing:.06em;
+      color:#b02f58;
+      font-size: 13px;
+      margin: 0 0 10px;
+      text-transform: uppercase;
+    }
+    .note{
+      margin:0 0 10px;
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: 14px;
+    }
+
+    /* Modal */
+    .modal{
+      position:fixed;
+      inset:0;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 18px;
+      background: rgba(20,10,14,.45);
+      z-index:50;
+    }
+    .modal.show{ display:flex; }
+
+    .modalCard{
+      width: min(980px, 100%);
+      max-height: min(86svh, 820px);
+      overflow:hidden;
+      background: rgba(255,255,255,.92);
+      border: 1px solid rgba(255,77,136,.18);
+      border-radius: 26px;
+      box-shadow: 0 22px 60px rgba(0,0,0,.25);
+      position:relative;
+    }
+
+    .modalHeader{
+      padding: 16px 16px 10px;
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+      border-bottom: 1px solid rgba(0,0,0,.06);
+      background: linear-gradient(180deg, rgba(255,240,246,.7), rgba(255,255,255,.0));
+    }
+
+    .modalHeader h2{
+      margin:0;
+      font-size: 22px;
+      line-height:1.2;
+    }
+    .modalHeader p{
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .closeBtn{
+      background: rgba(255,77,136,.12);
+      border: 1px solid rgba(255,77,136,.22);
+      color:#b02f58;
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight: 900;
+      cursor:pointer;
+    }
+
+    .modalBody{
+      padding: 16px;
+      display:grid;
+      gap: 14px;
+    }
+
+    /* "письмо" */
+    .letter{
+      background: #fff;
+      border: 1px solid rgba(0,0,0,.06);
+      border-radius: 22px;
+      padding: 18px 16px;
+      box-shadow: 0 10px 26px rgba(255,77,136,.12);
+      position:relative;
+      overflow:hidden;
+      text-align:left;
+    }
+    .letter .ribbon{
+      position:absolute;
+      top:16px;
+      right:-52px;
+      transform: rotate(35deg);
+      background: linear-gradient(180deg, #ff4d88, #ff2f78);
       color:#fff;
       font-weight:900;
-      padding:10px;
-      border-radius:999px;
-      display:inline-block;
-      margin-bottom:14px;
+      padding: 10px 70px;
+      letter-spacing:.08em;
+      font-size: 12px;
+      box-shadow: 0 10px 22px rgba(255,77,136,.35);
+    }
+    .letter h3{
+      margin: 0 0 10px;
+      font-size: 22px;
+    }
+    .letter p{
+      margin: 0 0 10px;
+      color: #4e2c35;
+      line-height: 1.55;
+      font-size: 15px;
+    }
+    .letter .sign{
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 14px;
+      text-align:right;
+      font-style: italic;
     }
 
-    .photos{
-      margin-top:20px;
-      display:flex;
-      gap:12px;
-      overflow-x:auto;
+    /* лента фото */
+    .strip{
+      background: rgba(255,77,136,.06);
+      border: 1px solid rgba(255,77,136,.14);
+      border-radius: 22px;
+      padding: 12px;
+      overflow:auto;
+      white-space:nowrap;
     }
-
-    .photos img{
-      width:180px;
-      height:120px;
+    .photo{
+      width: 210px;
+      height: 140px;
+      display:inline-flex;
+      margin-right: 10px;
+      border-radius: 18px;
+      background: #fff;
+      border: 1px solid rgba(0,0,0,.06);
+      overflow:hidden;
+      box-shadow: 0 10px 22px rgba(0,0,0,.08);
+      position:relative;
+    }
+    .photo img{
+      width:100%;
+      height:100%;
       object-fit:cover;
-      border-radius:18px;
-      box-shadow:0 10px 20px rgba(0,0,0,.15);
+      display:block;
+    }
+    .photo .cap{
+      position:absolute;
+      left:10px;
+      bottom:10px;
+      background: rgba(20,10,14,.55);
+      color:#fff;
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      backdrop-filter: blur(6px);
+    }
+
+    .footer{
+      margin-top: 14px;
+      text-align:center;
+      color: rgba(107,75,84,.85);
+      font-size: 12px;
     }
   </style>
 </head>
 <body>
+  <div class="wrap">
+    <div class="panel">
+      <div class="top">
+        <div class="badge">💘 VALENTINE MODE</div>
+        <div class="badge" id="dateBadge"></div>
+      </div>
 
-<div class="card">
-  <div class="emoji" id="emoji">🐻‍❄️</div>
-  <h1>BE MY VALENTINE 💌</h1>
-  <p id="question">Будешь моей валентинкой?</p>
+      <h1>BE MY VALENTINE 💌</h1>
+      <p class="subtitle">Нажми честно… но кнопка YES будет расти 😼</p>
 
-  <div class="buttons">
-    <button id="yes">YES 💖</button>
-    <button id="no">NO 🙈</button>
-  </div>
+      <div class="main">
+        <div class="cuteBox">
+          <div class="emoji" id="mainEmoji">🐻‍❄️</div>
+          <div class="question" id="questionText">Диана, будешь моей валентинкой?</div>
 
-  <div id="counter">NO нажали: 0 раз</div>
-</div>
+          <div class="btnRow">
+            <button id="yesBtn">YES 💖</button>
+            <button id="noBtn">NO 🙈</button>
+          </div>
 
-<!-- МУЗЫКА -->
-<audio id="music" loop>
-  <source src="music.mp3" type="audio/mpeg">
-</audio>
+          <div class="counter" id="counterText">NO нажали: 0 раз</div>
+        </div>
 
-<!-- МОДАЛКА -->
-<div class="modal" id="modal">
-  <div class="modalContent">
-    <div class="ribbon">LOVE 💕</div>
-    <h2>Ты сказала ДА 💖</h2>
-    <p>Ты — моё любимое «да»</p>
+        <div class="side">
+          <div class="miniTitle">как вставить твои фото</div>
+          <p class="note">
+            1) Создай папку <b>photos</b> рядом с index.html<br>
+            2) Закинь туда фото: <b>1.jpg, 2.jpg, 3.jpg...</b><br>
+            3) Всё — лента появится сама ✨
+          </p>
+          <div class="miniTitle">музыка</div>
+          <p class="note">
+            Положи рядом файл <b>music.mp3</b>. Музыка стартует только после нажатия YES (так требует браузер).
+          </p>
+        </div>
+      </div>
 
-    <div class="photos">
-      <img src="photos/1.jpg">
-      <img src="photos/2.jpg">
-      <img src="photos/3.jpg">
-      <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=800&q=80">
-      <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80">
-      <img src="https://images.unsplash.com/photo-1520975693411-6b9f2b0f2a9a?auto=format&fit=crop&w=800&q=80">
+      <div class="footer">Сделано с любовью 💗</div>
     </div>
   </div>
-</div>
 
-<script>
-  const yes = document.getElementById("yes");
-  const no = document.getElementById("no");
-  const counter = document.getElementById("counter");
-  const modal = document.getElementById("modal");
-  const music = document.getElementById("music");
-  const emoji = document.getElementById("emoji");
-  const question = document.getElementById("question");
+  <!-- МУЗЫКА -->
+  <audio id="loveMusic" loop>
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
 
-  let noCount = 0;
-  let scale = 1;
+  <!-- MODAL -->
+  <div class="modal" id="modal" role="dialog" aria-modal="true">
+    <div class="modalCard">
+      <div class="modalHeader">
+        <div>
+          <h2>Открытка 💝</h2>
+          <p>Ты нажала YES — я счастлив(а) 💗</p>
+        </div>
+        <button class="closeBtn" id="closeBtn">Закрыть ✖</button>
+      </div>
 
-  no.addEventListener("click", () => {
-    noCount++;
-    scale += 0.18;
-    yes.style.transform = `scale(${scale})`;
-    counter.textContent = `NO нажали: ${noCount} раз`;
-    emoji.textContent = ["🐻‍❄️","🧸","🐰","🐣","😿"][Math.min(noCount,4)];
-    question.textContent = "Точно нет?.. 🥺";
-  });
+      <div class="modalBody">
+        <div class="letter">
+          <div class="ribbon">LOVE</div>
+          <h3>Диана,</h3>
+          <p>
+            у меня к тебе очень важный вопрос…
+          </p>
+          <p>
+            Будешь моей валентинкой? 💌
+          </p>
+          <p>
+            Обещаю беречь, радовать и делать твои дни чуть-чуть теплее 🥺💗
+          </p>
+          <div class="sign">— от: <span id="fromName">ТВОЁ ИМЯ</span></div>
+        </div>
 
-  yes.addEventListener("click", () => {
-    music.play().catch(()=>{});
-    modal.classList.add("show");
-  });
+        <div>
+          <div class="miniTitle">твои фото 📸</div>
+          <div class="strip" id="photoStrip"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  modal.addEventListener("click", () => {
-    modal.classList.remove("show");
-  });
-</script>
+  <script>
+    // ====== НАСТРОЙКИ ======
+    const fromName = "ТВОЁ ИМЯ"; // впиши своё имя
+    const photos = [
+      "photos/1.jpg",
+      "photos/2.jpg",
+      "photos/3.jpg",
+      "photos/4.jpg",
+      "photos/5.jpg"
+    ];
+    // =======================
 
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const counterText = document.getElementById("counterText");
+    const modal = document.getElementById("modal");
+    const closeBtn = document.getElementById("closeBtn");
+    const photoStrip = document.getElementById("photoStrip");
+    const mainEmoji = document.getElementById("mainEmoji");
+    const questionEl = document.getElementById("questionText");
+    const dateBadge = document.getElementById("dateBadge");
+    const fromNameEl = document.getElementById("fromName");
+    const music = document.getElementById("loveMusic");
+
+    // date
+    const now = new Date();
+    const dd = String(now.getDate()).padStart(2,'0');
+    const mm = String(now.getMonth()+1).padStart(2,'0');
+    const yyyy = now.getFullYear();
+    dateBadge.textContent = `${dd}.${mm}.${yyyy}`;
+
+    // apply name
+    fromNameEl.textContent = fromName;
+
+    // photos
+    function buildPhotos(){
+      photoStrip.innerHTML = "";
+      photos.forEach((src, i) => {
+        const wrap = document.createElement("div");
+        wrap.className = "photo";
+
+        const img = document.createElement("img");
+        img.src = src;
+        img.alt = `photo ${i+1}`;
+
+        const cap = document.createElement("div");
+        cap.className = "cap";
+        cap.textContent = `❤ ${i+1}`;
+
+        wrap.appendChild(img);
+        wrap.appendChild(cap);
+        photoStrip.appendChild(wrap);
+      });
+    }
+    buildPhotos();
+
+    // hearts
+    function spawnHeart(){
+      const h = document.createElement("div");
+      h.className = "heart";
+      const size = 10 + Math.random()*18;
+      h.style.width = size + "px";
+      h.style.height = size + "px";
+      h.style.left = (Math.random()*100) + "vw";
+      h.style.animationDuration = (3.5 + Math.random()*3.5) + "s";
+      h.style.opacity = (0.4 + Math.random()*0.5).toFixed(2);
+      document.body.appendChild(h);
+      setTimeout(()=>h.remove(), 8000);
+    }
+
+    let noCount = 0;
+    let yesScale = 1;
+
+    const noMessages = [
+      "точно? 🥺",
+      "ну пожалуйста… 😿",
+      "я очень-очень прошу 😳",
+      "посмотри на кнопку YES 😼",
+      "ну давай… 💗",
+      "ещё один шанс 🙈",
+      "YES уже огромная 😭💞"
+    ];
+
+    function wiggleEmoji(){
+      mainEmoji.animate(
+        [
+          { transform: "rotate(0deg) scale(1)" },
+          { transform: "rotate(-8deg) scale(1.03)" },
+          { transform: "rotate(8deg) scale(1.03)" },
+          { transform: "rotate(0deg) scale(1)" }
+        ],
+        { duration: 320, easing: "ease-out" }
+      );
+    }
+
+    function nudgeNoButton(){
+      const dx = (Math.random()*20 - 10);
+      const dy = (Math.random()*14 - 7);
+      noBtn.style.transform = `translate(${dx}px, ${dy}px)`;
+      setTimeout(()=> noBtn.style.transform = "", 220);
+    }
+
+    noBtn.addEventListener("click", () => {
+      noCount += 1;
+
+      yesScale = Math.min(yesScale + 0.18, 3.6);
+      yesBtn.style.transform = `scale(${yesScale})`;
+
+      counterText.textContent = `NO нажали: ${noCount} раз`;
+      const msg = noMessages[Math.min(noCount-1, noMessages.length-1)];
+      questionEl.textContent = `Диана, будешь моей валентинкой? (${msg})`;
+
+      wiggleEmoji();
+      nudgeNoButton();
+      spawnHeart();
+      if (noCount % 2 === 0) spawnHeart();
+
+      if (noCount === 4) mainEmoji.textContent = "🧸";
+      if (noCount === 7) mainEmoji.textContent = "🐰";
+      if (noCount === 10) mainEmoji.textContent = "🐣";
+    });
+
+    function openModal(){
+      modal.classList.add("show");
+      document.body.style.overflow = "hidden";
+    }
+    function closeModal(){
+      modal.classList.remove("show");
+      document.body.style.overflow = "";
+    }
+
+    yesBtn.addEventListener("click", () => {
+      // музыка запускается только после клика пользователя
+      music.play().catch(()=>{});
+      for(let i=0;i<16;i++) setTimeout(spawnHeart, i*40);
+      openModal();
+    });
+
+    closeBtn.addEventListener("click", closeModal);
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) closeModal();
+    });
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modal.classList.contains("show")) closeModal();
+    });
+
+    setInterval(() => {
+      if (!modal.classList.contains("show") && Math.random() < 0.35) spawnHeart();
+    }, 650);
+  </script>
 </body>
 </html>
+
 
