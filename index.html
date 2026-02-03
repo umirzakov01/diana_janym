@@ -3,48 +3,45 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Be My Valentine 💗</title>
-
+  <title>Диане 💗</title>
   <style>
     :root{
-      --pink-1:#fff0f6;
-      --pink-2:#ffe3ef;
-      --pink-3:#ffd1e6;
-      --pink-4:#ffb6d5;
+      --bg1:#fff0f7;
+      --bg2:#ffe2ef;
+      --bg3:#ffd2e6;
       --hot:#ff4d8d;
       --hot2:#ff2f78;
 
-      --text:#2a1b22;
+      --text:#25161d;
       --muted:#7a5060;
 
-      --card: rgba(255,255,255,.82);
+      --glass: rgba(255,255,255,.84);
       --stroke: rgba(255,77,141,.18);
-      --shadow: 0 22px 60px rgba(28,10,18,.18);
-      --shadow2: 0 14px 30px rgba(255,77,141,.18);
+      --shadow: 0 22px 70px rgba(25,10,17,.18);
+      --shadow2: 0 14px 30px rgba(255,77,141,.16);
     }
 
     *{ box-sizing:border-box; }
     html,body{ height:100%; }
-
     body{
       margin:0;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color: var(--text);
+      color:var(--text);
       background:
-        radial-gradient(900px 600px at 20% 20%, var(--pink-1), transparent 60%),
-        radial-gradient(900px 600px at 80% 30%, var(--pink-2), transparent 60%),
-        radial-gradient(700px 500px at 60% 90%, var(--pink-3), transparent 55%),
+        radial-gradient(900px 650px at 20% 20%, var(--bg1), transparent 60%),
+        radial-gradient(900px 650px at 80% 30%, var(--bg2), transparent 60%),
+        radial-gradient(700px 520px at 60% 90%, var(--bg3), transparent 55%),
         linear-gradient(180deg, #fff, #fff6fa);
       overflow-x:hidden;
     }
 
-    /* мягкие сердечки на фоне */
+    /* hearts from start */
     .heart{
       position:fixed;
       bottom:-30px;
-      width:18px;height:18px;
+      width:16px;height:16px;
       transform: rotate(45deg);
-      background: rgba(255,77,141,.50);
+      background: rgba(255,77,141,.48);
       border-radius:4px;
       animation: floatUp linear forwards;
       pointer-events:none;
@@ -54,13 +51,12 @@
     .heart:before,.heart:after{
       content:"";
       position:absolute;
-      width:18px;height:18px;
+      width:16px;height:16px;
       background: inherit;
       border-radius:50%;
     }
-    .heart:before{ left:-9px; top:0; }
-    .heart:after{ left:0; top:-9px; }
-
+    .heart:before{ left:-8px; top:0; }
+    .heart:after{ left:0; top:-8px; }
     @keyframes floatUp{
       from{ transform: translateY(0) rotate(45deg); opacity:.9; }
       to{ transform: translateY(-110vh) rotate(45deg); opacity:0; }
@@ -73,29 +69,29 @@
       display:flex;
       align-items:center;
       justify-content:center;
-      padding: 24px 16px 40px;
+      padding: 22px 16px 44px;
     }
 
     .panel{
-      width:min(980px, 100%);
-      background: var(--card);
+      width:min(980px,100%);
+      background: var(--glass);
       backdrop-filter: blur(12px);
       border: 1px solid var(--stroke);
       border-radius: 28px;
       box-shadow: var(--shadow);
-      padding: 22px;
+      padding: 20px;
       position:relative;
       overflow:hidden;
     }
 
     .shine{
       position:absolute;
-      inset:-140px;
+      inset:-160px;
       pointer-events:none;
       background:
         radial-gradient(circle at 22% 18%, rgba(255,77,141,.18), transparent 45%),
-        radial-gradient(circle at 78% 22%, rgba(255,182,213,.20), transparent 42%),
-        radial-gradient(circle at 50% 85%, rgba(255,77,141,.10), transparent 40%);
+        radial-gradient(circle at 78% 22%, rgba(255,182,213,.22), transparent 42%),
+        radial-gradient(circle at 52% 85%, rgba(255,77,141,.10), transparent 40%);
     }
 
     .top{
@@ -105,10 +101,9 @@
       gap:12px;
       margin-bottom: 10px;
     }
-
     .badge{
       font-size:12px;
-      font-weight:800;
+      font-weight:900;
       letter-spacing:.14em;
       color:#b23563;
       background: rgba(255,77,141,.12);
@@ -124,13 +119,12 @@
       text-align:center;
       font-size: clamp(34px, 5vw, 58px);
       line-height:1.04;
-      letter-spacing: .02em;
+      letter-spacing:.02em;
     }
-
     .subtitle{
-      margin:0 0 16px;
+      margin:0 0 14px;
       text-align:center;
-      color: var(--muted);
+      color:var(--muted);
       font-size: 15px;
     }
 
@@ -140,12 +134,10 @@
       gap: 16px;
       align-items:stretch;
     }
-    @media (max-width: 880px){
-      .grid{ grid-template-columns: 1fr; }
-    }
+    @media (max-width: 880px){ .grid{ grid-template-columns: 1fr; } }
 
     .card{
-      background: rgba(255,255,255,.86);
+      background: rgba(255,255,255,.88);
       border: 1px solid rgba(0,0,0,.06);
       border-radius: 24px;
       box-shadow: var(--shadow2);
@@ -154,27 +146,162 @@
       overflow:hidden;
     }
 
+    /* ===== PENGUIN (CSS) ===== */
+    .penguinStage{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      margin-top: 4px;
+      margin-bottom: 10px;
+    }
     .penguin{
-      font-size: 64px;
-      user-select:none;
-      filter: drop-shadow(0 10px 18px rgba(255,77,141,.18));
-      margin-top: 6px;
+      width: 120px;
+      height: 140px;
+      position:relative;
+      transform-origin: 50% 100%;
+      animation: penguinBounce 1.8s ease-in-out infinite;
+      filter: drop-shadow(0 14px 20px rgba(255,77,141,.18));
+    }
+    @keyframes penguinBounce{
+      0%,100%{ transform: translateY(0) rotate(-1deg); }
+      50%{ transform: translateY(-6px) rotate(1deg); }
+    }
+    .p-body{
+      position:absolute;
+      inset: 18px 16px 6px 16px;
+      background: #1f1b1e;
+      border-radius: 60px 60px 54px 54px;
+    }
+    .p-belly{
+      position:absolute;
+      left: 24px; right: 24px;
+      top: 46px; bottom: 18px;
+      background: #ffffff;
+      border-radius: 50px;
+      opacity:.95;
+    }
+    .p-head{
+      position:absolute;
+      left: 22px; right: 22px;
+      top: 0px;
+      height: 70px;
+      background: #1f1b1e;
+      border-radius: 60px 60px 50px 50px;
+    }
+    .p-cheek{
+      position:absolute;
+      width: 16px; height: 10px;
+      background: rgba(255,77,141,.35);
+      border-radius: 999px;
+      top: 42px;
+      filter: blur(.1px);
+    }
+    .p-cheek.left{ left: 10px; }
+    .p-cheek.right{ right: 10px; }
+
+    .p-eye{
+      position:absolute;
+      width: 10px; height: 10px;
+      background:#fff;
+      border-radius:50%;
+      top: 30px;
+    }
+    .p-eye.left{ left: 24px; }
+    .p-eye.right{ right: 24px; }
+    .p-eye:after{
+      content:"";
+      position:absolute;
+      width: 4px; height: 4px;
+      background:#111;
+      border-radius:50%;
+      left: 3px; top: 3px;
+    }
+    .p-blink{
+      position:absolute;
+      left:0; right:0;
+      top:0; bottom:0;
+      border-radius:50%;
+      background:#1f1b1e;
+      transform: scaleY(0);
+      transform-origin: 50% 50%;
+      animation: blink 4.2s infinite;
+      opacity:.95;
+    }
+    @keyframes blink{
+      0%, 92%, 100% { transform: scaleY(0); }
+      94% { transform: scaleY(1); }
+      96% { transform: scaleY(0); }
     }
 
+    .p-beak{
+      position:absolute;
+      left:50%;
+      top: 42px;
+      width: 18px; height: 12px;
+      transform: translateX(-50%);
+      background: linear-gradient(180deg, #ffcc6b, #ffb74d);
+      border-radius: 0 0 12px 12px;
+    }
+
+    .p-flipper{
+      position:absolute;
+      width: 34px; height: 60px;
+      background:#1f1b1e;
+      top: 58px;
+      border-radius: 20px;
+      transform-origin: 50% 10%;
+    }
+    .p-flipper.left{
+      left: 0px;
+      transform: rotate(18deg);
+    }
+    .p-flipper.right{
+      right: 0px;
+      transform: rotate(-18deg);
+      animation: wave 1.6s ease-in-out infinite;
+    }
+    @keyframes wave{
+      0%,100%{ transform: rotate(-18deg); }
+      50%{ transform: rotate(-46deg); }
+    }
+
+    .p-heart{
+      position:absolute;
+      left:50%;
+      top: -14px;
+      width: 18px; height:18px;
+      transform: translateX(-50%) rotate(45deg);
+      background: rgba(255,77,141,.75);
+      border-radius: 4px;
+      animation: heartPop 1.6s ease-in-out infinite;
+    }
+    .p-heart:before,.p-heart:after{
+      content:"";
+      position:absolute;
+      width: 18px; height:18px;
+      background: inherit;
+      border-radius:50%;
+    }
+    .p-heart:before{ left:-9px; top:0; }
+    .p-heart:after{ left:0; top:-9px; }
+    @keyframes heartPop{
+      0%,100%{ transform: translateX(-50%) rotate(45deg) scale(.92); opacity:.75; }
+      50%{ transform: translateX(-50%) rotate(45deg) scale(1.05); opacity:.95; }
+    }
+
+    /* ===== Question + buttons ===== */
     .question{
       font-size: 22px;
-      font-weight: 900;
+      font-weight: 950;
       text-align:center;
-      margin: 10px 0 4px;
+      margin: 6px 0 4px;
     }
-
     .hint{
       text-align:center;
       margin:0;
       color: rgba(122,80,96,.9);
       font-size: 13px;
     }
-
     .btnRow{
       margin-top: 14px;
       display:flex;
@@ -189,9 +316,9 @@
       cursor:pointer;
       border-radius:999px;
       padding: 14px 22px;
-      font-weight: 900;
+      font-weight: 950;
       letter-spacing:.03em;
-      transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
+      transition: transform .15s ease, box-shadow .15s ease, filter .15s ease, opacity .15s ease;
       touch-action: manipulation;
       user-select:none;
       min-width: 140px;
@@ -207,14 +334,12 @@
     #yesBtn:active{ transform: scale(.98); }
 
     #noBtn{
-      background: rgba(255,255,255,.95);
+      background: rgba(255,255,255,.98);
       color:#b23563;
       border: 2px solid rgba(255,77,141,.32);
       box-shadow: 0 14px 26px rgba(255,77,141,.12);
       transform: scale(1);
     }
-    #noBtn:hover{ filter: brightness(1.02); }
-    #noBtn:active{ transform: scale(.98); }
 
     .counter{
       margin-top: 12px;
@@ -232,7 +357,7 @@
       font-size: 13px;
       letter-spacing:.12em;
       color:#b23563;
-      font-weight: 900;
+      font-weight: 950;
       text-transform: uppercase;
     }
     .sideText{
@@ -241,7 +366,6 @@
       font-size: 14px;
       line-height: 1.5;
     }
-
     .miniBox{
       background: rgba(255,77,141,.08);
       border: 1px solid rgba(255,77,141,.14);
@@ -251,64 +375,66 @@
       color:#5c3344;
     }
 
-    /* MODAL */
+    /* ===== Modal letter + Apple-like ribbon ===== */
     .modal{
       position:fixed;
       inset:0;
       display:none;
-      align-items:center;
+      align-items:flex-end;
       justify-content:center;
-      padding: 16px;
+      padding: 0;
       background: rgba(22,10,16,.45);
       z-index:50;
     }
     .modal.show{ display:flex; }
 
-    .modalCard{
-      width:min(980px, 100%);
-      max-height: min(88svh, 860px);
-      overflow:hidden;
+    /* Bottom sheet style (like iOS) */
+    .sheet{
+      width: min(980px, 100%);
+      height: min(92svh, 860px);
       background: rgba(255,255,255,.92);
       border: 1px solid rgba(255,77,141,.18);
-      border-radius: 28px;
-      box-shadow: 0 28px 80px rgba(0,0,0,.25);
+      border-radius: 28px 28px 0 0;
+      box-shadow: 0 -30px 90px rgba(0,0,0,.25);
+      overflow:hidden;
       position:relative;
     }
 
-    .modalHeader{
+    .sheetHeader{
+      padding: 12px 14px 10px;
+      border-bottom: 1px solid rgba(0,0,0,.06);
+      background: linear-gradient(180deg, rgba(255,240,246,.95), rgba(255,255,255,0));
       display:flex;
       align-items:flex-start;
       justify-content:space-between;
-      gap: 12px;
-      padding: 14px 14px 10px;
-      border-bottom: 1px solid rgba(0,0,0,.06);
-      background: linear-gradient(180deg, rgba(255,240,246,.9), rgba(255,255,255,0));
+      gap:12px;
     }
-    .modalHeader h2{
+    .sheetHeader h2{
       margin:0;
       font-size: 20px;
       line-height:1.2;
     }
-    .modalHeader p{
+    .sheetHeader p{
       margin: 6px 0 0;
       color: var(--muted);
       font-size: 14px;
     }
-
     .closeBtn{
       background: rgba(255,77,141,.12);
       border: 1px solid rgba(255,77,141,.22);
       color:#b23563;
       padding: 10px 14px;
       border-radius: 999px;
-      font-weight: 900;
+      font-weight: 950;
       cursor:pointer;
+      white-space:nowrap;
     }
 
-    .modalBody{
-      padding: 14px;
+    .sheetBody{
+      height: calc(100% - 62px);
       overflow:auto;
-      max-height: calc(min(88svh, 860px) - 64px);
+      padding: 14px;
+      padding-bottom: 140px; /* place for ribbon */
     }
 
     .letter{
@@ -320,7 +446,6 @@
       position:relative;
       overflow:hidden;
     }
-
     .ribbon{
       position:absolute;
       top:16px;
@@ -328,25 +453,23 @@
       transform: rotate(35deg);
       background: linear-gradient(180deg, var(--hot), var(--hot2));
       color:#fff;
-      font-weight: 900;
+      font-weight: 950;
       padding: 10px 78px;
       letter-spacing:.10em;
       font-size: 12px;
       box-shadow: 0 12px 24px rgba(255,77,141,.35);
     }
-
     .letter h3{
       margin: 0 0 10px;
       font-size: 22px;
     }
-
-    .sentence{
+    .para{
       margin: 0 0 10px;
       color:#4e2c3a;
-      line-height: 1.6;
+      line-height: 1.65;
       font-size: 15px;
+      white-space: pre-wrap;
     }
-
     .sig{
       margin-top: 12px;
       text-align:right;
@@ -355,15 +478,90 @@
       font-style: italic;
     }
 
-    .inlinePhoto{
-      width:100%;
+    /* Apple-like bottom ribbon (sticky) */
+    .ribbonDock{
+      position:absolute;
+      left:0; right:0; bottom:0;
+      padding: 10px 12px 16px;
+      background: linear-gradient(180deg, rgba(255,255,255,0), rgba(255,255,255,.92) 25%, rgba(255,255,255,.92));
+      border-top: 1px solid rgba(0,0,0,.06);
+      backdrop-filter: blur(10px);
+    }
+    .dockTitle{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom: 8px;
+      color:#b23563;
+      font-weight: 950;
+      letter-spacing: .10em;
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    .carouselWrap{
+      position:relative;
+    }
+    .edgeFade{
+      position:absolute;
+      top:0; bottom:0;
+      width: 28px;
+      pointer-events:none;
+      z-index:2;
+    }
+    .edgeFade.left{
+      left:0;
+      background: linear-gradient(90deg, rgba(255,255,255,.92), rgba(255,255,255,0));
+    }
+    .edgeFade.right{
+      right:0;
+      background: linear-gradient(270deg, rgba(255,255,255,.92), rgba(255,255,255,0));
+    }
+
+    .carousel{
+      display:flex;
+      gap: 12px;
+      overflow:auto;
+      padding: 2px 28px 2px 28px;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+    .carousel::-webkit-scrollbar{ height: 8px; }
+    .carousel::-webkit-scrollbar-thumb{
+      background: rgba(255,77,141,.25);
+      border-radius:999px;
+    }
+
+    .shot{
+      flex: 0 0 auto;
+      width: 170px;
+      height: 110px;
       border-radius: 18px;
-      margin: 10px 0 14px;
-      display:block;
+      overflow:hidden;
       border: 1px solid rgba(0,0,0,.06);
-      box-shadow: 0 12px 26px rgba(0,0,0,.10);
-      max-height: 420px;
-      object-fit: cover;
+      box-shadow: 0 10px 22px rgba(0,0,0,.10);
+      scroll-snap-align: center;
+      position:relative;
+      transform: perspective(700px) rotateY(0deg);
+      transition: transform .2s ease, filter .2s ease;
+      background:#fff;
+    }
+    .shot img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+    .shot .cap{
+      position:absolute;
+      left:10px; bottom:10px;
+      background: rgba(20,10,16,.52);
+      color:#fff;
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      backdrop-filter: blur(6px);
     }
 
     /* confetti canvas */
@@ -377,7 +575,6 @@
     #confetti.show{ display:block; }
   </style>
 </head>
-
 <body>
   <canvas id="confetti"></canvas>
 
@@ -386,40 +583,55 @@
       <div class="shine"></div>
 
       <div class="top">
-        <div class="badge">💗 SOFT PINK MODE</div>
+        <div class="badge">💗 SOFT PINK</div>
         <div class="badge" id="dateBadge"></div>
       </div>
 
       <h1>BE MY VALENTINE 💌</h1>
-      <p class="subtitle">Нажми честно… но пингвинёнок очень верит в YES 🐧💗</p>
+      <p class="subtitle">Диана… пингвинёнок приготовил письмо 🐧💗</p>
 
       <div class="grid">
         <div class="card" style="text-align:center;">
-          <div class="penguin" id="penguin">🐧</div>
-          <div class="question" id="questionText">Диана, будешь моей валентинкой?</div>
-          <p class="hint">NO уменьшится… YES станет больше 😳</p>
-
-          <div class="btnRow">
-            <button id="yesBtn">YES 💖</button>
-            <button id="noBtn">NO 🙈</button>
+          <div class="penguinStage">
+            <div class="penguin" aria-label="penguin">
+              <div class="p-heart"></div>
+              <div class="p-flipper left"></div>
+              <div class="p-flipper right"></div>
+              <div class="p-body"></div>
+              <div class="p-belly"></div>
+              <div class="p-head">
+                <div class="p-eye left"><div class="p-blink"></div></div>
+                <div class="p-eye right"><div class="p-blink"></div></div>
+                <div class="p-beak"></div>
+                <div class="p-cheek left"></div>
+                <div class="p-cheek right"></div>
+              </div>
+            </div>
           </div>
 
-          <div class="counter" id="counterText">NO нажали: 0 раз</div>
+          <div class="question" id="questionText">Диана, будешь моей валентинкой?</div>
+          <p class="hint">NO станет меньше, YES станет больше</p>
+
+          <div class="btnRow">
+            <button id="yesBtn">ДА 💖</button>
+            <button id="noBtn">НЕТ 🙈</button>
+          </div>
+
+          <div class="counter" id="counterText">НЕТ нажали: 0 раз</div>
         </div>
 
         <div class="card">
           <div class="sideTitle">Файлы</div>
           <p class="sideText">
             Положи рядом <b>music.mp3</b> и папку <b>photos</b> с фото <b>1.jpg–9.jpg</b>.
-            Музыка включится только после нажатия YES (так делают все браузеры).
           </p>
           <div class="miniBox">
-            💡 Если фото у тебя .png — просто поменяй в коде расширение на .png (я подписал где).
+            ⚠️ Музыка запускается только после клика по “ДА” — иначе браузер блокирует.
           </div>
-          <div style="height:10px"></div>
-          <div class="sideTitle">Нежность</div>
+          <div style="height:12px"></div>
+          <div class="sideTitle">Письмо</div>
           <p class="sideText">
-            Всё сделано аккуратно: мягкие тени, пастельный розовый, без “кричащих” цветов ✨
+            Я сделал поле для твоего текста. Вставь своё письмо в <b>LETTER_TEXT</b> внизу файла — и всё будет как надо.
           </p>
         </div>
       </div>
@@ -433,129 +645,121 @@
 
   <!-- Modal -->
   <div class="modal" id="modal" role="dialog" aria-modal="true">
-    <div class="modalCard">
-      <div class="modalHeader">
+    <div class="sheet">
+      <div class="sheetHeader">
         <div>
           <h2>Письмо для Дианы 💌</h2>
-          <p>Ты нажала YES — и пингвинёнок празднует 🐧💗</p>
+          <p>А снизу — лента фото (как у Apple) ✨</p>
         </div>
         <button class="closeBtn" id="closeBtn">Закрыть ✖</button>
       </div>
 
-      <div class="modalBody">
+      <div class="sheetBody">
         <div class="letter">
           <div class="ribbon">LOVE</div>
-
-          <div id="letterContent"></div>
-
+          <h3>Диана,</h3>
+          <p class="para" id="letterText"></p>
           <div class="sig">— от: <span id="fromName">ТВОЁ ИМЯ</span></div>
+        </div>
+      </div>
+
+      <!-- Bottom ribbon -->
+      <div class="ribbonDock">
+        <div class="dockTitle">
+          <span>Фото 1–9</span>
+          <span style="letter-spacing:0; text-transform:none; font-weight:800; color:rgba(122,80,96,.9);">
+            листай →
+          </span>
+        </div>
+
+        <div class="carouselWrap">
+          <div class="edgeFade left"></div>
+          <div class="edgeFade right"></div>
+          <div class="carousel" id="carousel"></div>
         </div>
       </div>
     </div>
   </div>
 
   <script>
-    // ===== НАСТРОЙКИ =====
+    // ====== ВСТАВЬ СЮДА СВОЁ ПИСЬМО (точно как ты писал) ======
+    const LETTER_TEXT =
+`(Вставь сюда твоё письмо Диане.
+Можно несколько строк.
+Я оставил переносы — они сохранятся красиво.)`;
+    // ==========================================================
+
     const fromName = "ТВОЁ ИМЯ"; // впиши своё имя
 
-    // 9 фото (если у тебя png, замени .jpg на .png)
-    const photos = [
-      "photos/1.jpg",
-      "photos/2.jpg",
-      "photos/3.jpg",
-      "photos/4.jpg",
-      "photos/5.jpg",
-      "photos/6.jpg",
-      "photos/7.jpg",
-      "photos/8.jpg",
-      "photos/9.jpg",
-    ];
-
-    // Текст письма (то, что мы уже писали в диалоге — нежно и просто)
-    // Если хочешь — можешь заменить на свой точный текст.
-    const sentences = [
-      "Диана,",
-      "у меня к тебе очень важный вопрос…",
-      "Я давно хотел(а) спросить именно тебя.",
-      "Будешь моей валентинкой?",
-      "Обещаю беречь, радовать и делать твои дни чуть-чуть теплее.",
-      "Ты мне правда очень дорога.",
-      "Если ты скажешь «да», я буду самым счастливым пингвинёнком на свете 🐧💗"
-    ];
-    // =====================
+    // 9 фото (если у тебя png — поменяй .jpg на .png)
+    const photos = Array.from({length:9}, (_,i)=> `photos/${i+1}.jpg`);
 
     const yesBtn = document.getElementById("yesBtn");
     const noBtn  = document.getElementById("noBtn");
     const counterText = document.getElementById("counterText");
     const questionText = document.getElementById("questionText");
-    const penguin = document.getElementById("penguin");
 
     const modal = document.getElementById("modal");
     const closeBtn = document.getElementById("closeBtn");
     const loveMusic = document.getElementById("loveMusic");
 
     const fromNameEl = document.getElementById("fromName");
-    const letterContent = document.getElementById("letterContent");
+    const letterTextEl = document.getElementById("letterText");
+    const carousel = document.getElementById("carousel");
     fromNameEl.textContent = fromName;
+    letterTextEl.textContent = LETTER_TEXT;
 
-    // date badge
+    // Date badge
     const dateBadge = document.getElementById("dateBadge");
     const now = new Date();
-    const dd = String(now.getDate()).padStart(2,'0');
-    const mm = String(now.getMonth()+1).padStart(2,'0');
-    const yyyy = now.getFullYear();
-    dateBadge.textContent = `${dd}.${mm}.${yyyy}`;
+    dateBadge.textContent = `${String(now.getDate()).padStart(2,'0')}.${String(now.getMonth()+1).padStart(2,'0')}.${now.getFullYear()}`;
 
-    // build letter: after each sentence -> next photo (1-9)
-    function buildLetter(){
-      letterContent.innerHTML = "";
-
-      // Вставляем предложения + фото по порядку
-      let photoIndex = 0;
-
-      sentences.forEach((s, idx) => {
-        const p = document.createElement("p");
-        p.className = "sentence";
-        p.textContent = s;
-        letterContent.appendChild(p);
-
-        // после каждого предложения — фото, пока есть 1..9
-        if (photoIndex < photos.length) {
-          const img = document.createElement("img");
-          img.className = "inlinePhoto";
-          img.src = photos[photoIndex];
-          img.alt = `photo ${photoIndex+1}`;
-          letterContent.appendChild(img);
-          photoIndex++;
-        }
-      });
-
-      // если фото осталось больше, чем предложений — докидываем оставшиеся
-      while (photoIndex < photos.length) {
+    // Build Apple-like ribbon
+    function buildRibbon(){
+      carousel.innerHTML = "";
+      photos.forEach((src, idx)=>{
+        const card = document.createElement("div");
+        card.className = "shot";
         const img = document.createElement("img");
-        img.className = "inlinePhoto";
-        img.src = photos[photoIndex];
-        img.alt = `photo ${photoIndex+1}`;
-        letterContent.appendChild(img);
-        photoIndex++;
-      }
-    }
-    buildLetter();
+        img.src = src;
+        img.alt = `photo ${idx+1}`;
+        const cap = document.createElement("div");
+        cap.className = "cap";
+        cap.textContent = `❤ ${idx+1}`;
+        card.appendChild(img);
+        card.appendChild(cap);
 
-    // hearts
+        // tiny interactive tilt on pointer move (very Apple-ish)
+        card.addEventListener("mousemove", (e)=>{
+          const r = card.getBoundingClientRect();
+          const x = (e.clientX - r.left) / r.width - 0.5;
+          card.style.transform = `perspective(700px) rotateY(${x*10}deg)`;
+        });
+        card.addEventListener("mouseleave", ()=>{
+          card.style.transform = "perspective(700px) rotateY(0deg)";
+        });
+
+        carousel.appendChild(card);
+      });
+    }
+    buildRibbon();
+
+    // Hearts start immediately
     function spawnHeart(){
       const h = document.createElement("div");
       h.className = "heart";
-      const size = 10 + Math.random()*18;
+      const size = 10 + Math.random()*16;
       h.style.width = size + "px";
       h.style.height = size + "px";
       h.style.left = (Math.random()*100) + "vw";
-      h.style.animationDuration = (3.4 + Math.random()*3.6) + "s";
+      h.style.animationDuration = (3.2 + Math.random()*3.8) + "s";
       h.style.opacity = (0.35 + Math.random()*0.55).toFixed(2);
       document.body.appendChild(h);
       setTimeout(()=>h.remove(), 8000);
     }
-    setInterval(()=>{ if(Math.random()<0.35) spawnHeart(); }, 700);
+    setInterval(()=> spawnHeart(), 520);
+    // also a small burst at start
+    for(let i=0;i<12;i++) setTimeout(spawnHeart, i*90);
 
     // YES/NO scaling
     let noCount = 0;
@@ -564,9 +768,9 @@
 
     const noMsgs = [
       "точно? 🥺",
-      "пингвинёнок расстроился 😿",
+      "пингвинёнок грустит 😿",
       "ну пожалуйста… 💗",
-      "YES такая красивая… 🙈",
+      "ДА такая красивая… 🙈",
       "я очень прошу 😳",
       "последний шанс… 🥺💞"
     ];
@@ -574,24 +778,16 @@
     noBtn.addEventListener("click", () => {
       noCount++;
 
-      // YES увеличивается
-      yesScale = Math.min(yesScale + 0.20, 3.8);
+      yesScale = Math.min(yesScale + 0.22, 4.0);
       yesBtn.style.transform = `scale(${yesScale})`;
 
-      // NO уменьшается
-      noScale = Math.max(noScale - 0.10, 0.45);
+      noScale = Math.max(noScale - 0.12, 0.35);
       noBtn.style.transform = `scale(${noScale})`;
+      noBtn.style.opacity = String(Math.max(0.35, noScale));
 
-      counterText.textContent = `NO нажали: ${noCount} раз`;
-
+      counterText.textContent = `НЕТ нажали: ${noCount} раз`;
       const msg = noMsgs[Math.min(noCount-1, noMsgs.length-1)];
       questionText.textContent = `Диана, будешь моей валентинкой? (${msg})`;
-
-      // милый пингвин-реакция
-      if (noCount === 1) penguin.textContent = "🐧";
-      if (noCount === 3) penguin.textContent = "🐧💗";
-      if (noCount === 5) penguin.textContent = "🐧🥺";
-      if (noCount >= 7) penguin.textContent = "🐧💞";
 
       spawnHeart();
       if (noCount % 2 === 0) spawnHeart();
@@ -606,19 +802,13 @@
       modal.classList.remove("show");
       document.body.style.overflow = "";
     }
-
     closeBtn.addEventListener("click", closeModal);
-    modal.addEventListener("click", (e) => {
-      if (e.target === modal) closeModal();
-    });
-    window.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && modal.classList.contains("show")) closeModal();
-    });
+    modal.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
+    window.addEventListener("keydown", (e) => { if (e.key === "Escape" && modal.classList.contains("show")) closeModal(); });
 
-    // Confetti
+    // Confetti (canvas)
     const confettiCanvas = document.getElementById("confetti");
     const ctx = confettiCanvas.getContext("2d");
-
     function resizeCanvas(){
       confettiCanvas.width = window.innerWidth;
       confettiCanvas.height = window.innerHeight;
@@ -626,63 +816,62 @@
     window.addEventListener("resize", resizeCanvas);
     resizeCanvas();
 
-    let confettiPieces = [];
-    let confettiRunning = false;
+    let pieces = [];
+    let running = false;
 
-    function startConfetti(durationMs = 2200){
+    function startConfetti(durationMs=2600){
       confettiCanvas.classList.add("show");
-      confettiRunning = true;
-      confettiPieces = [];
+      running = true;
+      pieces = [];
 
       const w = confettiCanvas.width;
       const h = confettiCanvas.height;
 
-      const count = 180;
+      const count = 220;
       for(let i=0;i<count;i++){
-        confettiPieces.push({
+        pieces.push({
           x: Math.random()*w,
-          y: -20 - Math.random()*h*0.2,
-          r: 4 + Math.random()*6,
+          y: -20 - Math.random()*h*0.25,
+          w: 6 + Math.random()*8,
+          h: 4 + Math.random()*6,
           vx: -2 + Math.random()*4,
-          vy: 2.5 + Math.random()*4.5,
+          vy: 2.8 + Math.random()*5.0,
           rot: Math.random()*Math.PI,
           vr: -0.12 + Math.random()*0.24,
-          alpha: 0.9
+          a: 0.95,
+          // soft pink palette
+          c: `rgba(255, ${210 + Math.floor(Math.random()*35)}, ${220 + Math.floor(Math.random()*25)}, 1)`
         });
       }
 
       const start = performance.now();
       function tick(t){
-        if(!confettiRunning) return;
+        if(!running) return;
         const elapsed = t - start;
 
         ctx.clearRect(0,0,w,h);
-        confettiPieces.forEach(p=>{
+        pieces.forEach(p=>{
           p.x += p.vx;
           p.y += p.vy;
           p.rot += p.vr;
-          p.vy += 0.02; // гравитация
-          p.alpha = Math.max(0, p.alpha - 0.002);
+          p.vy += 0.02;
+          p.a = Math.max(0, p.a - 0.002);
 
           ctx.save();
-          ctx.globalAlpha = p.alpha;
-
-          // нежные розовые оттенки (без задавания “жёстких” цветов в CSS, но тут рисуем конфетти)
-          const shade = 200 + Math.floor(Math.random()*55);
-          ctx.fillStyle = `rgba(255, ${shade}, ${shade}, ${p.alpha})`;
-
+          ctx.globalAlpha = p.a;
+          ctx.fillStyle = p.c;
           ctx.translate(p.x, p.y);
           ctx.rotate(p.rot);
-          ctx.fillRect(-p.r, -p.r/2, p.r*2.1, p.r);
+          ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h);
           ctx.restore();
         });
 
-        confettiPieces = confettiPieces.filter(p => p.y < h + 30 && p.alpha > 0.05);
+        pieces = pieces.filter(p => p.y < h + 40 && p.a > 0.06);
 
-        if(elapsed < durationMs && confettiPieces.length){
+        if(elapsed < durationMs && pieces.length){
           requestAnimationFrame(tick);
         } else {
-          confettiRunning = false;
+          running = false;
           ctx.clearRect(0,0,w,h);
           confettiCanvas.classList.remove("show");
         }
@@ -690,24 +879,13 @@
       requestAnimationFrame(tick);
     }
 
-    // YES click: music + confetti + modal
+    // YES: music + confetti + modal + hearts burst
     yesBtn.addEventListener("click", () => {
-      // музыка (после клика разрешено)
       loveMusic.play().catch(()=>{});
-
-      // маленький дождик сердечек
-      for(let i=0;i<14;i++) setTimeout(spawnHeart, i*45);
-
-      // конфетти
-      startConfetti(2400);
-
+      for(let i=0;i<18;i++) setTimeout(spawnHeart, i*45);
+      startConfetti(2700);
       openModal();
     });
   </script>
 </body>
 </html>
-
-
-
-
-
