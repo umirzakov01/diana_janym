@@ -4,7 +4,17 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Диане 💗</title>
+
   <style>
+    /* ===== Kudry font from file рядом с index.html ===== */
+    @font-face{
+      font-family: "Kudry";
+      src: url("kudry.woff2") format("woff2");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
     :root{
       --bg1:#fff0f7;
       --bg2:#ffe2ef;
@@ -15,7 +25,7 @@
       --text:#25161d;
       --muted:#7a5060;
 
-      --glass: rgba(255,255,255,.84);
+      --glass: rgba(255,255,255,.86);
       --stroke: rgba(255,77,141,.18);
       --shadow: 0 22px 70px rgba(25,10,17,.18);
       --shadow2: 0 14px 30px rgba(255,77,141,.16);
@@ -23,9 +33,10 @@
 
     *{ box-sizing:border-box; }
     html,body{ height:100%; }
+
     body{
       margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-family: "Kudry", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color:var(--text);
       background:
         radial-gradient(900px 650px at 20% 20%, var(--bg1), transparent 60%),
@@ -35,7 +46,7 @@
       overflow-x:hidden;
     }
 
-    /* hearts from start */
+    /* hearts start immediately */
     .heart{
       position:fixed;
       bottom:-30px;
@@ -73,15 +84,16 @@
     }
 
     .panel{
-      width:min(980px,100%);
+      width:min(860px,100%);
       background: var(--glass);
       backdrop-filter: blur(12px);
       border: 1px solid var(--stroke);
       border-radius: 28px;
       box-shadow: var(--shadow);
-      padding: 20px;
+      padding: 22px;
       position:relative;
       overflow:hidden;
+      text-align:center;
     }
 
     .shine{
@@ -112,120 +124,75 @@
       border-radius:999px;
       user-select:none;
       white-space:nowrap;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; /* для читабельности */
     }
 
     h1{
-      margin: 8px 0 6px;
-      text-align:center;
-      font-size: clamp(34px, 5vw, 58px);
-      line-height:1.04;
+      margin: 10px 0 6px;
+      font-size: clamp(36px, 5.2vw, 64px);
+      line-height:1.02;
       letter-spacing:.02em;
     }
     .subtitle{
       margin:0 0 14px;
-      text-align:center;
       color:var(--muted);
-      font-size: 15px;
+      font-size: 16px;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     }
-
-    .grid{
-      display:grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap: 16px;
-      align-items:stretch;
-    }
-    @media (max-width: 880px){ .grid{ grid-template-columns: 1fr; } }
 
     .card{
-      background: rgba(255,255,255,.88);
+      margin: 0 auto;
+      background: rgba(255,255,255,.90);
       border: 1px solid rgba(0,0,0,.06);
-      border-radius: 24px;
+      border-radius: 26px;
       box-shadow: var(--shadow2);
-      padding: 18px;
+      padding: 18px 16px 16px;
+      max-width: 640px;
       position:relative;
       overflow:hidden;
     }
 
-    /* ===== PENGUIN (CSS) ===== */
-    .penguinStage{
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      margin-top: 4px;
-      margin-bottom: 10px;
-    }
-    .penguin{
-      width: 120px;
-      height: 140px;
+    /* ===== Penguin from your photo + cute animation ===== */
+    .penguinWrap{
+      width: 170px;
+      height: 170px;
+      margin: 6px auto 10px;
       position:relative;
-      transform-origin: 50% 100%;
-      animation: penguinBounce 1.8s ease-in-out infinite;
-      filter: drop-shadow(0 14px 20px rgba(255,77,141,.18));
+      border-radius: 999px;
+      background: rgba(255,77,141,.08);
+      border: 1px solid rgba(255,77,141,.18);
+      box-shadow: 0 14px 30px rgba(255,77,141,.15);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
     }
-    @keyframes penguinBounce{
+    .penguinImg{
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 999px;
+      animation: bob 1.8s ease-in-out infinite;
+      transform-origin: 50% 80%;
+      filter: drop-shadow(0 10px 14px rgba(0,0,0,.12));
+    }
+    @keyframes bob{
       0%,100%{ transform: translateY(0) rotate(-1deg); }
       50%{ transform: translateY(-6px) rotate(1deg); }
     }
-    .p-body{
-      position:absolute;
-      inset: 18px 16px 6px 16px;
-      background: #1f1b1e;
-      border-radius: 60px 60px 54px 54px;
-    }
-    .p-belly{
-      position:absolute;
-      left: 24px; right: 24px;
-      top: 46px; bottom: 18px;
-      background: #ffffff;
-      border-radius: 50px;
-      opacity:.95;
-    }
-    .p-head{
-      position:absolute;
-      left: 22px; right: 22px;
-      top: 0px;
-      height: 70px;
-      background: #1f1b1e;
-      border-radius: 60px 60px 50px 50px;
-    }
-    .p-cheek{
-      position:absolute;
-      width: 16px; height: 10px;
-      background: rgba(255,77,141,.35);
-      border-radius: 999px;
-      top: 42px;
-      filter: blur(.1px);
-    }
-    .p-cheek.left{ left: 10px; }
-    .p-cheek.right{ right: 10px; }
 
-    .p-eye{
+    /* blink overlay (soft) */
+    .blink{
       position:absolute;
-      width: 10px; height: 10px;
-      background:#fff;
-      border-radius:50%;
-      top: 30px;
-    }
-    .p-eye.left{ left: 24px; }
-    .p-eye.right{ right: 24px; }
-    .p-eye:after{
-      content:"";
-      position:absolute;
-      width: 4px; height: 4px;
-      background:#111;
-      border-radius:50%;
-      left: 3px; top: 3px;
-    }
-    .p-blink{
-      position:absolute;
-      left:0; right:0;
-      top:0; bottom:0;
-      border-radius:50%;
-      background:#1f1b1e;
+      inset: 20px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.12);
       transform: scaleY(0);
       transform-origin: 50% 50%;
-      animation: blink 4.2s infinite;
-      opacity:.95;
+      animation: blink 4.3s infinite;
+      mix-blend-mode: multiply;
+      opacity:.35;
+      pointer-events:none;
     }
     @keyframes blink{
       0%, 92%, 100% { transform: scaleY(0); }
@@ -233,84 +200,51 @@
       96% { transform: scaleY(0); }
     }
 
-    .p-beak{
+    /* little heart above penguin */
+    .pHeart{
       position:absolute;
-      left:50%;
-      top: 42px;
-      width: 18px; height: 12px;
-      transform: translateX(-50%);
-      background: linear-gradient(180deg, #ffcc6b, #ffb74d);
-      border-radius: 0 0 12px 12px;
-    }
-
-    .p-flipper{
-      position:absolute;
-      width: 34px; height: 60px;
-      background:#1f1b1e;
-      top: 58px;
-      border-radius: 20px;
-      transform-origin: 50% 10%;
-    }
-    .p-flipper.left{
-      left: 0px;
-      transform: rotate(18deg);
-    }
-    .p-flipper.right{
-      right: 0px;
-      transform: rotate(-18deg);
-      animation: wave 1.6s ease-in-out infinite;
-    }
-    @keyframes wave{
-      0%,100%{ transform: rotate(-18deg); }
-      50%{ transform: rotate(-46deg); }
-    }
-
-    .p-heart{
-      position:absolute;
-      left:50%;
-      top: -14px;
-      width: 18px; height:18px;
+      top: 6px;
+      left: 50%;
+      width: 18px; height: 18px;
       transform: translateX(-50%) rotate(45deg);
-      background: rgba(255,77,141,.75);
+      background: rgba(255,77,141,.70);
       border-radius: 4px;
       animation: heartPop 1.6s ease-in-out infinite;
     }
-    .p-heart:before,.p-heart:after{
+    .pHeart:before,.pHeart:after{
       content:"";
       position:absolute;
       width: 18px; height:18px;
       background: inherit;
       border-radius:50%;
     }
-    .p-heart:before{ left:-9px; top:0; }
-    .p-heart:after{ left:0; top:-9px; }
+    .pHeart:before{ left:-9px; top:0; }
+    .pHeart:after{ left:0; top:-9px; }
     @keyframes heartPop{
-      0%,100%{ transform: translateX(-50%) rotate(45deg) scale(.92); opacity:.75; }
+      0%,100%{ transform: translateX(-50%) rotate(45deg) scale(.92); opacity:.72; }
       50%{ transform: translateX(-50%) rotate(45deg) scale(1.05); opacity:.95; }
     }
 
-    /* ===== Question + buttons ===== */
     .question{
       font-size: 22px;
-      font-weight: 950;
-      text-align:center;
-      margin: 6px 0 4px;
+      font-weight: 900;
+      margin: 8px 0 6px;
     }
     .hint{
-      text-align:center;
-      margin:0;
+      margin:0 0 12px;
       color: rgba(122,80,96,.9);
       font-size: 13px;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     }
+
     .btnRow{
-      margin-top: 14px;
       display:flex;
       gap: 12px;
       align-items:center;
       justify-content:center;
       flex-wrap:wrap;
+      margin-top: 8px;
     }
-
     button{
       border:none;
       cursor:pointer;
@@ -321,7 +255,8 @@
       transition: transform .15s ease, box-shadow .15s ease, filter .15s ease, opacity .15s ease;
       touch-action: manipulation;
       user-select:none;
-      min-width: 140px;
+      min-width: 150px;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     }
 
     #yesBtn{
@@ -330,9 +265,6 @@
       box-shadow: 0 16px 28px rgba(255,77,141,.35);
       transform: scale(1);
     }
-    #yesBtn:hover{ filter: brightness(1.03); }
-    #yesBtn:active{ transform: scale(.98); }
-
     #noBtn{
       background: rgba(255,255,255,.98);
       color:#b23563;
@@ -350,48 +282,24 @@
       border: 1px dashed rgba(255,77,141,.25);
       border-radius: 16px;
       padding: 8px 10px;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     }
 
-    .sideTitle{
-      margin: 0 0 10px;
-      font-size: 13px;
-      letter-spacing:.12em;
-      color:#b23563;
-      font-weight: 950;
-      text-transform: uppercase;
-    }
-    .sideText{
-      margin:0 0 10px;
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.5;
-    }
-    .miniBox{
-      background: rgba(255,77,141,.08);
-      border: 1px solid rgba(255,77,141,.14);
-      border-radius: 18px;
-      padding: 10px 12px;
-      font-size: 13px;
-      color:#5c3344;
-    }
-
-    /* ===== Modal letter + Apple-like ribbon ===== */
+    /* ===== Modal (bottom sheet like iOS) ===== */
     .modal{
       position:fixed;
       inset:0;
       display:none;
       align-items:flex-end;
       justify-content:center;
-      padding: 0;
       background: rgba(22,10,16,.45);
       z-index:50;
     }
     .modal.show{ display:flex; }
 
-    /* Bottom sheet style (like iOS) */
     .sheet{
-      width: min(980px, 100%);
-      height: min(92svh, 860px);
+      width: min(920px, 100%);
+      height: min(92svh, 900px);
       background: rgba(255,255,255,.92);
       border: 1px solid rgba(255,77,141,.18);
       border-radius: 28px 28px 0 0;
@@ -399,7 +307,6 @@
       overflow:hidden;
       position:relative;
     }
-
     .sheetHeader{
       padding: 12px 14px 10px;
       border-bottom: 1px solid rgba(0,0,0,.06);
@@ -411,13 +318,14 @@
     }
     .sheetHeader h2{
       margin:0;
-      font-size: 20px;
+      font-size: 22px;
       line-height:1.2;
     }
     .sheetHeader p{
       margin: 6px 0 0;
       color: var(--muted);
       font-size: 14px;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     }
     .closeBtn{
       background: rgba(255,77,141,.12);
@@ -428,13 +336,13 @@
       font-weight: 950;
       cursor:pointer;
       white-space:nowrap;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     }
 
     .sheetBody{
       height: calc(100% - 62px);
       overflow:auto;
-      padding: 14px;
-      padding-bottom: 140px; /* place for ribbon */
+      padding: 14px 14px 18px;
     }
 
     .letter{
@@ -445,6 +353,8 @@
       box-shadow: 0 12px 28px rgba(255,77,141,.12);
       position:relative;
       overflow:hidden;
+      max-width: 760px;
+      margin: 0 auto;
     }
     .ribbon{
       position:absolute;
@@ -458,110 +368,42 @@
       letter-spacing:.10em;
       font-size: 12px;
       box-shadow: 0 12px 24px rgba(255,77,141,.35);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     }
-    .letter h3{
+
+    .letterTitle{
       margin: 0 0 10px;
-      font-size: 22px;
+      font-size: 26px;
+      text-align:center;
     }
-    .para{
+
+    .sentence{
       margin: 0 0 10px;
       color:#4e2c3a;
-      line-height: 1.65;
-      font-size: 15px;
-      white-space: pre-wrap;
+      line-height: 1.7;
+      font-size: 18px;
+      text-align:center;
+      padding: 0 2px;
     }
+
+    .inlinePhoto{
+      width: 100%;
+      border-radius: 18px;
+      margin: 10px 0 16px;
+      display:block;
+      border: 1px solid rgba(0,0,0,.06);
+      box-shadow: 0 12px 26px rgba(0,0,0,.10);
+      max-height: 520px;
+      object-fit: cover;
+    }
+
     .sig{
-      margin-top: 12px;
+      margin-top: 10px;
       text-align:right;
       color: var(--muted);
       font-size: 14px;
       font-style: italic;
-    }
-
-    /* Apple-like bottom ribbon (sticky) */
-    .ribbonDock{
-      position:absolute;
-      left:0; right:0; bottom:0;
-      padding: 10px 12px 16px;
-      background: linear-gradient(180deg, rgba(255,255,255,0), rgba(255,255,255,.92) 25%, rgba(255,255,255,.92));
-      border-top: 1px solid rgba(0,0,0,.06);
-      backdrop-filter: blur(10px);
-    }
-    .dockTitle{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      margin-bottom: 8px;
-      color:#b23563;
-      font-weight: 950;
-      letter-spacing: .10em;
-      font-size: 12px;
-      text-transform: uppercase;
-    }
-
-    .carouselWrap{
-      position:relative;
-    }
-    .edgeFade{
-      position:absolute;
-      top:0; bottom:0;
-      width: 28px;
-      pointer-events:none;
-      z-index:2;
-    }
-    .edgeFade.left{
-      left:0;
-      background: linear-gradient(90deg, rgba(255,255,255,.92), rgba(255,255,255,0));
-    }
-    .edgeFade.right{
-      right:0;
-      background: linear-gradient(270deg, rgba(255,255,255,.92), rgba(255,255,255,0));
-    }
-
-    .carousel{
-      display:flex;
-      gap: 12px;
-      overflow:auto;
-      padding: 2px 28px 2px 28px;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-    }
-    .carousel::-webkit-scrollbar{ height: 8px; }
-    .carousel::-webkit-scrollbar-thumb{
-      background: rgba(255,77,141,.25);
-      border-radius:999px;
-    }
-
-    .shot{
-      flex: 0 0 auto;
-      width: 170px;
-      height: 110px;
-      border-radius: 18px;
-      overflow:hidden;
-      border: 1px solid rgba(0,0,0,.06);
-      box-shadow: 0 10px 22px rgba(0,0,0,.10);
-      scroll-snap-align: center;
-      position:relative;
-      transform: perspective(700px) rotateY(0deg);
-      transition: transform .2s ease, filter .2s ease;
-      background:#fff;
-    }
-    .shot img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-    }
-    .shot .cap{
-      position:absolute;
-      left:10px; bottom:10px;
-      background: rgba(20,10,16,.52);
-      color:#fff;
-      font-size: 12px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      backdrop-filter: blur(6px);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     }
 
     /* confetti canvas */
@@ -575,6 +417,7 @@
     #confetti.show{ display:block; }
   </style>
 </head>
+
 <body>
   <canvas id="confetti"></canvas>
 
@@ -583,57 +426,29 @@
       <div class="shine"></div>
 
       <div class="top">
-        <div class="badge">💗 SOFT PINK</div>
+        <div class="badge">SOFT PINK</div>
         <div class="badge" id="dateBadge"></div>
       </div>
 
       <h1>BE MY VALENTINE 💌</h1>
-      <p class="subtitle">Диана… пингвинёнок приготовил письмо 🐧💗</p>
+      <div class="subtitle">Диана… пингвинёнок в фартуке подготовил письмо 💗</div>
 
-      <div class="grid">
-        <div class="card" style="text-align:center;">
-          <div class="penguinStage">
-            <div class="penguin" aria-label="penguin">
-              <div class="p-heart"></div>
-              <div class="p-flipper left"></div>
-              <div class="p-flipper right"></div>
-              <div class="p-body"></div>
-              <div class="p-belly"></div>
-              <div class="p-head">
-                <div class="p-eye left"><div class="p-blink"></div></div>
-                <div class="p-eye right"><div class="p-blink"></div></div>
-                <div class="p-beak"></div>
-                <div class="p-cheek left"></div>
-                <div class="p-cheek right"></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="question" id="questionText">Диана, будешь моей валентинкой?</div>
-          <p class="hint">NO станет меньше, YES станет больше</p>
-
-          <div class="btnRow">
-            <button id="yesBtn">ДА 💖</button>
-            <button id="noBtn">НЕТ 🙈</button>
-          </div>
-
-          <div class="counter" id="counterText">НЕТ нажали: 0 раз</div>
+      <div class="card">
+        <div class="penguinWrap">
+          <div class="pHeart"></div>
+          <img class="penguinImg" src="penguin.jpg" alt="Пингвин" />
+          <div class="blink"></div>
         </div>
 
-        <div class="card">
-          <div class="sideTitle">Файлы</div>
-          <p class="sideText">
-            Положи рядом <b>music.mp3</b> и папку <b>photos</b> с фото <b>1.jpg–9.jpg</b>.
-          </p>
-          <div class="miniBox">
-            ⚠️ Музыка запускается только после клика по “ДА” — иначе браузер блокирует.
-          </div>
-          <div style="height:12px"></div>
-          <div class="sideTitle">Письмо</div>
-          <p class="sideText">
-            Я сделал поле для твоего текста. Вставь своё письмо в <b>LETTER_TEXT</b> внизу файла — и всё будет как надо.
-          </p>
+        <div class="question" id="questionText">Диана, будешь моей валентинкой?</div>
+        <div class="hint">НЕТ уменьшится, ДА увеличится</div>
+
+        <div class="btnRow">
+          <button id="yesBtn">ДА 💖</button>
+          <button id="noBtn">НЕТ 🙈</button>
         </div>
+
+        <div class="counter" id="counterText">НЕТ нажали: 0 раз</div>
       </div>
     </div>
   </div>
@@ -649,7 +464,7 @@
       <div class="sheetHeader">
         <div>
           <h2>Письмо для Дианы 💌</h2>
-          <p>А снизу — лента фото (как у Apple) ✨</p>
+          <p>формат: предложение → фото (1–9)</p>
         </div>
         <button class="closeBtn" id="closeBtn">Закрыть ✖</button>
       </div>
@@ -657,25 +472,11 @@
       <div class="sheetBody">
         <div class="letter">
           <div class="ribbon">LOVE</div>
-          <h3>Диана,</h3>
-          <p class="para" id="letterText"></p>
+          <div class="letterTitle">Диана,</div>
+
+          <div id="letterContent"></div>
+
           <div class="sig">— от: <span id="fromName">ТВОЁ ИМЯ</span></div>
-        </div>
-      </div>
-
-      <!-- Bottom ribbon -->
-      <div class="ribbonDock">
-        <div class="dockTitle">
-          <span>Фото 1–9</span>
-          <span style="letter-spacing:0; text-transform:none; font-weight:800; color:rgba(122,80,96,.9);">
-            листай →
-          </span>
-        </div>
-
-        <div class="carouselWrap">
-          <div class="edgeFade left"></div>
-          <div class="edgeFade right"></div>
-          <div class="carousel" id="carousel"></div>
         </div>
       </div>
     </div>
@@ -683,15 +484,21 @@
 
   <script>
     // ====== ВСТАВЬ СЮДА СВОЁ ПИСЬМО (точно как ты писал) ======
-    const LETTER_TEXT =
-`(Вставь сюда твоё письмо Диане.
-Можно несколько строк.
-Я оставил переносы — они сохранятся красиво.)`;
+    // СДЕЛАЙ 9 ПРЕДЛОЖЕНИЙ (каждая строка = отдельное предложение)
+    const LETTER_SENTENCES = [
+      "ВСТАВЬ ТУТ 1-е предложение.",
+      "ВСТАВЬ ТУТ 2-е предложение.",
+      "ВСТАВЬ ТУТ 3-е предложение.",
+      "ВСТАВЬ ТУТ 4-е предложение.",
+      "ВСТАВЬ ТУТ 5-е предложение.",
+      "ВСТАВЬ ТУТ 6-е предложение.",
+      "ВСТАВЬ ТУТ 7-е предложение.",
+      "ВСТАВЬ ТУТ 8-е предложение.",
+      "ВСТАВЬ ТУТ 9-е предложение."
+    ];
     // ==========================================================
 
     const fromName = "ТВОЁ ИМЯ"; // впиши своё имя
-
-    // 9 фото (если у тебя png — поменяй .jpg на .png)
     const photos = Array.from({length:9}, (_,i)=> `photos/${i+1}.jpg`);
 
     const yesBtn = document.getElementById("yesBtn");
@@ -704,45 +511,32 @@
     const loveMusic = document.getElementById("loveMusic");
 
     const fromNameEl = document.getElementById("fromName");
-    const letterTextEl = document.getElementById("letterText");
-    const carousel = document.getElementById("carousel");
+    const letterContent = document.getElementById("letterContent");
     fromNameEl.textContent = fromName;
-    letterTextEl.textContent = LETTER_TEXT;
 
     // Date badge
     const dateBadge = document.getElementById("dateBadge");
     const now = new Date();
     dateBadge.textContent = `${String(now.getDate()).padStart(2,'0')}.${String(now.getMonth()+1).padStart(2,'0')}.${now.getFullYear()}`;
 
-    // Build Apple-like ribbon
-    function buildRibbon(){
-      carousel.innerHTML = "";
-      photos.forEach((src, idx)=>{
-        const card = document.createElement("div");
-        card.className = "shot";
+    // Build letter: sentence -> photo -> sentence -> photo ... (1..9)
+    function buildLetter(){
+      letterContent.innerHTML = "";
+      for(let i=0;i<9;i++){
+        const s = LETTER_SENTENCES[i] ?? "";
+        const p = document.createElement("div");
+        p.className = "sentence";
+        p.textContent = s;
+        letterContent.appendChild(p);
+
         const img = document.createElement("img");
-        img.src = src;
-        img.alt = `photo ${idx+1}`;
-        const cap = document.createElement("div");
-        cap.className = "cap";
-        cap.textContent = `❤ ${idx+1}`;
-        card.appendChild(img);
-        card.appendChild(cap);
-
-        // tiny interactive tilt on pointer move (very Apple-ish)
-        card.addEventListener("mousemove", (e)=>{
-          const r = card.getBoundingClientRect();
-          const x = (e.clientX - r.left) / r.width - 0.5;
-          card.style.transform = `perspective(700px) rotateY(${x*10}deg)`;
-        });
-        card.addEventListener("mouseleave", ()=>{
-          card.style.transform = "perspective(700px) rotateY(0deg)";
-        });
-
-        carousel.appendChild(card);
-      });
+        img.className = "inlinePhoto";
+        img.src = photos[i];
+        img.alt = `photo ${i+1}`;
+        letterContent.appendChild(img);
+      }
     }
-    buildRibbon();
+    buildLetter();
 
     // Hearts start immediately
     function spawnHeart(){
@@ -757,8 +551,7 @@
       document.body.appendChild(h);
       setTimeout(()=>h.remove(), 8000);
     }
-    setInterval(()=> spawnHeart(), 520);
-    // also a small burst at start
+    setInterval(spawnHeart, 520);
     for(let i=0;i<12;i++) setTimeout(spawnHeart, i*90);
 
     // YES/NO scaling
@@ -770,7 +563,6 @@
       "точно? 🥺",
       "пингвинёнок грустит 😿",
       "ну пожалуйста… 💗",
-      "ДА такая красивая… 🙈",
       "я очень прошу 😳",
       "последний шанс… 🥺💞"
     ];
@@ -786,6 +578,7 @@
       noBtn.style.opacity = String(Math.max(0.35, noScale));
 
       counterText.textContent = `НЕТ нажали: ${noCount} раз`;
+
       const msg = noMsgs[Math.min(noCount-1, noMsgs.length-1)];
       questionText.textContent = `Диана, будешь моей валентинкой? (${msg})`;
 
@@ -819,7 +612,7 @@
     let pieces = [];
     let running = false;
 
-    function startConfetti(durationMs=2600){
+    function startConfetti(durationMs=2700){
       confettiCanvas.classList.add("show");
       running = true;
       pieces = [];
@@ -827,19 +620,18 @@
       const w = confettiCanvas.width;
       const h = confettiCanvas.height;
 
-      const count = 220;
+      const count = 240;
       for(let i=0;i<count;i++){
         pieces.push({
           x: Math.random()*w,
           y: -20 - Math.random()*h*0.25,
-          w: 6 + Math.random()*8,
-          h: 4 + Math.random()*6,
+          ww: 6 + Math.random()*8,
+          hh: 4 + Math.random()*6,
           vx: -2 + Math.random()*4,
           vy: 2.8 + Math.random()*5.0,
           rot: Math.random()*Math.PI,
           vr: -0.12 + Math.random()*0.24,
           a: 0.95,
-          // soft pink palette
           c: `rgba(255, ${210 + Math.floor(Math.random()*35)}, ${220 + Math.floor(Math.random()*25)}, 1)`
         });
       }
@@ -862,7 +654,7 @@
           ctx.fillStyle = p.c;
           ctx.translate(p.x, p.y);
           ctx.rotate(p.rot);
-          ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h);
+          ctx.fillRect(-p.ww/2, -p.hh/2, p.ww, p.hh);
           ctx.restore();
         });
 
